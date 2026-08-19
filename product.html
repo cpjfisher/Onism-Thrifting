@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Product | Onism Thrifting</title>
+
+    <meta
+        name="description"
+        content="Shop unique pre-loved fashion from Onism Thrifting."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="product.css">
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="site-header">
+
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo">
+                ONISM<span>THRIFTING</span>
+            </a>
+
+
+            <nav class="main-nav" aria-label="Main navigation">
+
+                <a href="shop.html" class="active">
+                    Shop
+                </a>
+
+                <a href="index.html#new-drop">
+                    New Drop
+                </a>
+
+                <a href="shop.html?category=under-200">
+                    Under R200
+                </a>
+
+                <a href="index.html#about">
+                    About
+                </a>
+
+                <a href="index.html#sell-donate">
+                    Sell / Donate
+                </a>
+
+            </nav>
+
+
+            <div class="nav-actions">
+
+                <button
+                    class="icon-button"
+                    aria-label="Search"
+                >
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <circle cx="11" cy="11" r="7"></circle>
+
+                        <line
+                            x1="20"
+                            y1="20"
+                            x2="16.2"
+                            y2="16.2"
+                        ></line>
+                    </svg>
+                </button>
+
+
+                <button
+                    class="icon-button"
+                    aria-label="Wishlist"
+                >
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M20.8 8.6c0 5.4-8.8 10.4-8.8 10.4S3.2 14 3.2 8.6A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"></path>
+                    </svg>
+                </button>
+
+
+                <button
+                    class="icon-button cart-button"
+                    aria-label="Shopping cart"
+                >
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <circle cx="9" cy="20" r="1"></circle>
+                        <circle cx="19" cy="20" r="1"></circle>
+
+                        <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 2-1.6L21 8H6"></path>
+                    </svg>
+
+                    <span class="cart-count">
+                        0
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="menu-toggle"
+                    aria-label="Open menu"
+                    aria-expanded="false"
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="mobile-menu">
+
+            <nav aria-label="Mobile navigation">
+
+                <a href="shop.html">
+                    Shop
+                </a>
+
+                <a href="index.html#new-drop">
+                    New Drop
+                </a>
+
+                <a href="shop.html?category=under-200">
+                    Under R200
+                </a>
+
+                <a href="index.html#about">
+                    About
+                </a>
+
+                <a href="index.html#sell-donate">
+                    Sell / Donate
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         PRODUCT
+    ========================== -->
+
+    <main class="product-page">
+
+        <div class="container">
+
+
+            <!-- Breadcrumb -->
+
+            <nav
+                class="product-breadcrumb"
+                aria-label="Breadcrumb"
+            >
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <span>/</span>
+
+                <a href="shop.html">
+                    Shop
+                </a>
+
+                <span>/</span>
+
+                <span id="breadcrumb-name">
+                    Product
+                </span>
+
+            </nav>
+
+
+
+            <!-- Product layout -->
+
+            <section class="product-layout">
+
+
+                <!-- =================================
+                     PRODUCT IMAGES
+                ================================== -->
+
+                <div class="product-gallery">
+
+                    <div class="main-product-image">
+
+                        <span
+                            class="product-page-badge"
+                            id="product-badge"
+                        >
+                            JUST DROPPED
+                        </span>
+
+                        <button
+                            type="button"
+                            class="gallery-heart"
+                            id="wishlist-button"
+                            aria-label="Add product to wishlist"
+                        >
+                            ♡
+                        </button>
+
+                        <img
+                            id="main-product-image"
+                            src=""
+                            alt=""
+                        >
+
+                    </div>
+
+
+                    <div
+                        class="product-thumbnails"
+                        id="product-thumbnails"
+                    >
+
+                        <!-- Thumbnails created by JavaScript -->
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================
+                     PRODUCT DETAILS
+                ================================== -->
+
+                <div class="product-details">
+
+                    <p
+                        class="product-category"
+                        id="product-category"
+                    >
+                        VINTAGE
+                    </p>
+
+
+                    <h1 id="product-name">
+                        Vintage Denim Jacket
+                    </h1>
+
+
+                    <div class="product-price">
+                        R<span id="product-price">180</span>
+                    </div>
+
+
+                    <div class="product-meta">
+
+                        <div class="meta-line">
+
+                            <span>
+                                Condition
+                            </span>
+
+                            <strong id="product-condition">
+                                Very Good
+                            </strong>
+
+                        </div>
+
+
+                        <div class="meta-line">
+
+                            <span>
+                                Size
+                            </span>
+
+                            <strong id="product-size">
+                                M
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="product-description">
+
+                        <h2>
+                            Description
+                        </h2>
+
+                        <p id="product-description">
+                            A classic pre-loved denim jacket with
+                            a relaxed everyday fit. Easy to pair
+                            with jeans, cargos or your favourite
+                            basic tee.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Measurements -->
+
+                    <div class="product-measurements">
+
+                        <h2>
+                            Measurements
+                        </h2>
+
+
+                        <div class="measurements-grid">
+
+                            <div>
+
+                                <span>
+                                    Chest
+                                </span>
+
+                                <strong id="measurement-chest">
+                                    104 cm
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Length
+                                </span>
+
+                                <strong id="measurement-length">
+                                    67 cm
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Shoulder
+                                </span>
+
+                                <strong id="measurement-shoulder">
+                                    45 cm
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Sleeve
+                                </span>
+
+                                <strong id="measurement-sleeve">
+                                    61 cm
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Purchase -->
+
+                    <div class="product-purchase">
+
+                        <button
+                            type="button"
+                            class="add-to-cart-button"
+                            id="add-to-cart"
+                        >
+                            Add to Cart
+                            <span>→</span>
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="product-wishlist-button"
+                            id="wishlist-text-button"
+                        >
+                            ♡ Save for later
+                        </button>
+
+                    </div>
+
+
+                    <!-- Delivery information -->
+
+                    <div class="product-info-box">
+
+                        <div>
+
+                            <strong>
+                                Pre-loved piece
+                            </strong>
+
+                            <p>
+                                You're buying a previously loved
+                                item. Small signs of wear may be
+                                present and are part of its character.
+                            </p>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Delivery
+                            </strong>
+
+                            <p>
+                                Delivery options and collection
+                                details will be shown at checkout.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-container">
+
+            <div class="footer-main">
+
+
+                <div class="footer-brand">
+
+                    <a
+                        href="index.html"
+                        class="footer-logo"
+                    >
+                        ONISM<span>THRIFTING</span>
+                    </a>
+
+                    <p>
+                        Good style. Not the price tag.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <p class="footer-heading">
+                        SHOP
+                    </p>
+
+                    <a href="shop.html">
+                        Shop All
+                    </a>
+
+                    <a href="index.html#new-drop">
+                        New Drop
+                    </a>
+
+                    <a href="shop.html?category=men">
+                        Men
+                    </a>
+
+                    <a href="shop.html?category=women">
+                        Women
+                    </a>
+
+                    <a href="shop.html?category=under-200">
+                        Under R200
+                    </a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <p class="footer-heading">
+                        INFORMATION
+                    </p>
+
+                    <a href="index.html#about">
+                        About Us
+                    </a>
+
+                    <a href="index.html#sell-donate">
+                        Sell With Us
+                    </a>
+
+                    <a href="index.html#sell-donate">
+                        Donate Clothes
+                    </a>
+
+                    <a href="#">
+                        FAQ
+                    </a>
+
+                    <a href="#">
+                        Contact
+                    </a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <p class="footer-heading">
+                        FOLLOW
+                    </p>
+
+                    <a href="#">
+                        Instagram
+                    </a>
+
+                    <a href="#">
+                        TikTok
+                    </a>
+
+                    <a href="#">
+                        Facebook
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <p>
+                    © 2026 Onism Thrifting. All rights reserved.
+                </p>
+
+                <div class="footer-legal">
+
+                    <a href="#">
+                        Privacy Policy
+                    </a>
+
+                    <a href="#">
+                        Terms & Conditions
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+    <script src="product.js"></script>
+
+</body>
+
+</html>
