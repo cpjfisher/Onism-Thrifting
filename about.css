@@ -1,0 +1,317 @@
+/* ========================================= 
+ABOUT PAGE ========================================= */ 
+.about-page { 
+    background: #f5f4f0; 
+}
+
+.about-hero h1 { 
+    max-width: 1000px; 
+    margin-bottom: 40px;
+    font-family: "Space Grotesk", sans-serif; 
+    font-size: clamp(62px, 9vw, 130px); 
+    line-height: 0.86; 
+    letter-spacing: -0.08em; 
+    font-weight: 700; 
+}
+
+.about-hero h1 span { 
+    display: block; 
+    color: transparent;
+    -webkit-text-stroke: 1.2px #111111;
+}
+
+.about-hero-intro { 
+    max-width: 580px; 
+    font-size: 18px; 
+    line-height: 1.7; 
+    color: #666666; 
+}
+
+/* ========================================= 
+STORY ========================================= */ 
+.about-story { 
+    padding: 120px 0; 
+} 
+    
+.about-story-grid { 
+    display: grid; 
+    grid-template-columns: 0.7fr 1.3fr; 
+    gap: 100px; 
+} 
+
+.about-story-label { 
+    padding-top: 8px; 
+} 
+
+.about-story-content { 
+    max-width: 700px; 
+} 
+
+.about-story-content h2 { 
+    margin-bottom: 40px; 
+    font-family: "Space Grotesk", sans-serif; 
+    font-size: clamp(45px, 6vw, 78px); 
+    line-height: 0.9; 
+    letter-spacing: -0.07em; 
+    font-weight: 700;
+} 
+    
+.about-story-content h2 span { 
+    display: block; 
+    color: transparent; 
+    -webkit-text-stroke: 1px #111111; 
+} 
+
+.about-story-content p { 
+    max-width: 620px; 
+    margin-bottom: 22px; 
+    font-size: 14px; 
+    line-height: 1.8; 
+    color: #666666; 
+} 
+
+.about-story-content p:last-child { 
+    margin-bottom: 0; 
+}
+
+/* ========================================= 
+BELIEFS ========================================= */ 
+.about-beliefs { 
+    padding: 120px 0; 
+    background: #111111; 
+    color: #ffffff; 
+} 
+
+.beliefs-heading { 
+    margin-bottom: 70px; 
+} 
+
+.beliefs-heading .section-eyebrow { 
+    color: #888888; 
+    margin-bottom: 18px; 
+} 
+
+.beliefs-heading h2 { 
+    max-width: 800px; 
+    font-family: "Space Grotesk", sans-serif; 
+    font-size: clamp(50px, 7vw, 95px); 
+    line-height: 0.9; 
+    letter-spacing: -0.075em; 
+    font-weight: 700; 
+} 
+
+.beliefs-heading h2 span { 
+    display: block; 
+    color: transparent; 
+    -webkit-text-stroke: 1px #ffffff; 
+} 
+
+/* Belief grid */ 
+.beliefs-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    border-top: 1px solid rgba(255, 255, 255, 0.15); 
+} 
+
+.belief { 
+    min-height: 260px; 
+    padding: 25px 30px 30px 0; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
+} 
+
+.belief + .belief { 
+    padding-left: 30px; 
+    border-left: 1px solid rgba(255, 255, 255, 0.15); 
+} 
+
+.belief-number { 
+    display: block; 
+    margin-bottom: 65px; 
+    font-size: 10px; 
+    color: #777777; 
+    letter-spacing: 0.08em; 
+} 
+
+.belief h3 { 
+    margin-bottom: 10px; 
+    font-family: "Space Grotesk", sans-serif; 
+    font-size: 22px; 
+    letter-spacing: -0.03em; 
+} 
+
+.belief p { 
+    max-width: 270px; 
+    font-size: 12px; 
+    line-height: 1.65; 
+    color: #8c8c8c; 
+}
+
+/* ========================================= 
+ABOUT CTA ========================================= */ 
+.about-cta { 
+    padding: 115px 0; 
+    background: #e8e6df; 
+} 
+
+.about-cta-inner { 
+    display: grid; 
+    grid-template-columns: 1fr 0.8fr; 
+    gap: 100px; 
+    align-items: end; 
+} 
+
+.about-cta h2 { 
+    margin-top: 20px; 
+    font-family: "Space Grotesk", sans-serif; 
+    font-size: clamp(48px, 6vw, 78px); 
+    line-height: 0.9; 
+    letter-spacing: -0.07em; 
+    font-weight: 700; 
+} 
+
+.about-cta h2 span { 
+    display: block; 
+    color: transparent; 
+    -webkit-text-stroke: 1px #111111; 
+} 
+
+.about-cta-action { 
+    max-width: 380px; 
+} 
+
+.about-cta-action p { 
+    margin-bottom: 28px; 
+    font-size: 14px; 
+    line-height: 1.7; 
+    color: #666666; 
+} 
+
+.about-cta-button { 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 30px; 
+    min-height: 52px; 
+    padding: 0 22px; 
+    border: 1px solid #111111; 
+    background: #111111; 
+    color: #ffffff; 
+    font-size: 10px; 
+    font-weight: 700; 
+    letter-spacing: 0.1em; 
+    text-transform: uppercase; 
+    transition: background 0.25s ease, color 0.25s ease; 
+} 
+
+.about-cta-button span { 
+    font-size: 18px; 
+} 
+
+.about-cta-button:hover { 
+    background: transparent; 
+    color: #111111; 
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+@media (max-width: 850px) { 
+    .about-hero { 
+        padding: 85px 0 90px; 
+    } 
+    
+    .about-story { 
+        padding: 90px 0; 
+    } 
+    
+    .about-story-grid { 
+        grid-template-columns: 1fr; 
+        gap: 45px; 
+    } 
+    
+    .about-story-label { 
+        padding-top: 0; 
+    } 
+    
+    .about-beliefs { 
+        padding: 90px 0; 
+    } 
+    
+    .beliefs-grid { 
+        grid-template-columns: 1fr; 
+    } 
+    
+    .belief { 
+        min-height: auto; 
+        padding: 25px 0; 
+    } 
+    
+    .belief + .belief { 
+        padding-left: 0; 
+        border-left: 0; 
+    } 
+    
+    .belief-number { 
+        margin-bottom: 35px; 
+    } 
+    
+    .about-cta { 
+        padding: 85px 0; 
+    } 
+    
+    .about-cta-inner { 
+        grid-template-columns: 1fr; 
+        gap: 45px; 
+        align-items: start; 
+    } 
+} 
+
+@media (max-width: 600px) { 
+    .about-hero { 
+        padding: 65px 0 75px; 
+    } 
+
+    .about-hero h1 { 
+        font-size: 54px; 
+        margin-bottom: 28px; 
+    }
+
+    .about-hero-intro { 
+        font-size: 14px; 
+    }
+
+    .about-story { 
+        padding: 75px 0; 
+    }
+
+    .about-story-content h2 { 
+        font-size: 52px; margin-bottom: 30px; 
+    }
+
+    .about-story-content p { 
+        font-size: 13px; 
+    }
+
+    .about-beliefs { 
+        padding: 75px 0; 
+    }
+
+    .beliefs-heading { 
+        margin-bottom: 45px; 
+    }
+
+    .beliefs-heading h2 { 
+        font-size: 52px; 
+    }
+
+    .belief { 
+        padding: 22px 0; 
+    }
+
+    .about-cta { 
+        padding: 75px 0; 
+    }
+
+    .about-cta h2 { 
+        font-size: 52px; 
+    } 
+}

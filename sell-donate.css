@@ -1,0 +1,725 @@
+/* =========================================
+   SELL / DONATE PAGE
+========================================= */
+
+.sell-donate-page {
+    background: #f5f4f0;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.sell-donate-hero {
+    padding: 115px 0 120px;
+
+    border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+.sell-donate-hero h1 {
+    max-width: 1100px;
+
+    margin-bottom: 38px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(58px, 8.5vw, 120px);
+
+    line-height: 0.87;
+
+    letter-spacing: -0.08em;
+
+    font-weight: 700;
+}
+
+.sell-donate-hero h1 span {
+    display: block;
+
+    color: transparent;
+
+    -webkit-text-stroke: 1.2px #111111;
+}
+
+.sell-donate-hero-text {
+    max-width: 560px;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+
+    color: #666666;
+}
+
+
+/* =========================================
+   HOW IT WORKS
+========================================= */
+
+.how-it-works {
+    padding: 115px 0;
+}
+
+.sell-section-heading {
+    margin-bottom: 65px;
+}
+
+.sell-section-heading .section-eyebrow {
+    margin-bottom: 18px;
+}
+
+.sell-section-heading h2 {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(48px, 6vw, 78px);
+
+    line-height: 0.9;
+
+    letter-spacing: -0.07em;
+
+    font-weight: 700;
+}
+
+.sell-section-heading h2 span {
+    display: block;
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px #111111;
+}
+
+
+.process-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    border-top: 1px solid rgba(17, 17, 17, 0.14);
+}
+
+.process-step {
+    min-height: 260px;
+
+    padding: 25px 30px 30px 0;
+
+    border-bottom: 1px solid rgba(17, 17, 17, 0.14);
+}
+
+.process-step + .process-step {
+    padding-left: 30px;
+
+    border-left:
+        1px solid rgba(17, 17, 17, 0.14);
+}
+
+.process-number {
+    display: block;
+
+    margin-bottom: 65px;
+
+    font-size: 10px;
+
+    color: #888888;
+
+    letter-spacing: 0.08em;
+}
+
+.process-step h3 {
+    margin-bottom: 10px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 22px;
+
+    letter-spacing: -0.03em;
+}
+
+.process-step p {
+    max-width: 280px;
+
+    font-size: 12px;
+
+    line-height: 1.65;
+
+    color: #777777;
+}
+
+
+/* =========================================
+   SELL / DONATE CHOICE
+========================================= */
+
+.choice-section {
+    padding: 0 0 115px;
+}
+
+.choice-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    border-top: 1px solid rgba(17, 17, 17, 0.14);
+}
+
+.choice-card {
+    position: relative;
+
+    min-height: 230px;
+
+    display: grid;
+
+    grid-template-columns: 45px 1fr 30px;
+
+    align-items: start;
+
+    gap: 20px;
+
+    padding: 25px 30px 30px 0;
+
+    border: 0;
+    border-bottom: 1px solid rgba(17, 17, 17, 0.14);
+
+    background: transparent;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        padding 0.3s ease;
+}
+
+.choice-card + .choice-card {
+    padding-left: 30px;
+
+    border-left:
+        1px solid rgba(17, 17, 17, 0.14);
+}
+
+.choice-card:hover,
+.choice-card.active {
+    background: #e8e6df;
+}
+
+.choice-number {
+    font-size: 10px;
+
+    color: #888888;
+
+    letter-spacing: 0.08em;
+}
+
+.choice-card h2 {
+    margin-bottom: 10px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 30px;
+
+    letter-spacing: -0.04em;
+}
+
+.choice-card p {
+    max-width: 260px;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    color: #777777;
+}
+
+.choice-arrow {
+    font-size: 20px;
+
+    transition:
+        transform 0.25s ease;
+}
+
+.choice-card:hover .choice-arrow,
+.choice-card.active .choice-arrow {
+    transform: translateX(5px);
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.submission-section {
+    padding: 120px 0;
+
+    background: #111111;
+
+    color: #ffffff;
+}
+
+.submission-container {
+    display: grid;
+
+    grid-template-columns:
+        0.8fr 1.2fr;
+
+    gap: 100px;
+
+    align-items: start;
+}
+
+.submission-intro {
+    position: sticky;
+
+    top: 30px;
+}
+
+.submission-intro .section-eyebrow {
+    color: #777777;
+
+    margin-bottom: 18px;
+}
+
+.submission-intro h2 {
+    margin-bottom: 28px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(48px, 5.5vw, 75px);
+
+    line-height: 0.9;
+
+    letter-spacing: -0.07em;
+}
+
+.submission-intro h2 span {
+    display: block;
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px #ffffff;
+}
+
+.submission-intro > p:last-child {
+    max-width: 390px;
+
+    font-size: 13px;
+
+    line-height: 1.75;
+
+    color: #888888;
+}
+
+
+/* Form */
+
+.sell-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 25px;
+}
+
+.form-field {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+.form-field label {
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+
+    color: #8a8a8a;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    width: 100%;
+
+    border: 0;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.18);
+
+    border-radius: 0;
+
+    padding: 12px 0;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 13px;
+}
+
+.form-field select {
+    cursor: pointer;
+}
+
+.form-field select option {
+    color: #111111;
+
+    background: #ffffff;
+}
+
+.form-field textarea {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: #555555;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    border-bottom-color: #ffffff;
+}
+
+.form-row {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 30px;
+}
+
+.form-field small {
+    font-size: 9px;
+
+    color: #666666;
+
+    line-height: 1.5;
+}
+
+
+/* File input */
+
+.form-field input[type="file"] {
+    padding: 12px 0;
+
+    cursor: pointer;
+
+    color: #888888;
+}
+
+.form-field input[type="file"]::file-selector-button {
+    margin-right: 12px;
+
+    padding: 8px 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 9px;
+
+    cursor: pointer;
+}
+
+
+/* Submit */
+
+.submit-button {
+    width: 100%;
+
+    min-height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 10px;
+
+    padding: 0 22px;
+
+    border: 1px solid #ffffff;
+
+    background: #ffffff;
+
+    color: #111111;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.submit-button:hover {
+    background: transparent;
+
+    color: #ffffff;
+}
+
+.submit-button span:last-child {
+    font-size: 18px;
+}
+
+.form-note {
+    font-size: 9px;
+
+    line-height: 1.5;
+
+    color: #555555;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   WHAT WE ACCEPT
+========================================= */
+
+.accept-section {
+    padding: 120px 0;
+}
+
+.accept-heading {
+    margin-bottom: 60px;
+}
+
+.accept-heading .section-eyebrow {
+    margin-bottom: 18px;
+}
+
+.accept-heading h2 {
+    max-width: 800px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(48px, 6vw, 78px);
+
+    line-height: 0.9;
+
+    letter-spacing: -0.07em;
+}
+
+.accept-heading h2 span {
+    display: block;
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px #111111;
+}
+
+.accept-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    border-top: 1px solid rgba(17, 17, 17, 0.14);
+}
+
+.accept-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    min-height: 75px;
+
+    padding: 16px 20px 16px 0;
+
+    border-bottom:
+        1px solid rgba(17, 17, 17, 0.14);
+}
+
+.accept-item:nth-child(even) {
+    padding-left: 30px;
+
+    border-left:
+        1px solid rgba(17, 17, 17, 0.14);
+}
+
+.accept-item span {
+    font-size: 13px;
+}
+
+.accept-item p {
+    font-size: 12px;
+
+    color: #666666;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 850px) {
+
+    .sell-donate-hero {
+        padding: 85px 0 90px;
+    }
+
+    .how-it-works {
+        padding: 90px 0;
+    }
+
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process-step {
+        min-height: auto;
+
+        padding: 25px 0;
+    }
+
+    .process-step + .process-step {
+        padding-left: 0;
+
+        border-left: 0;
+    }
+
+    .process-number {
+        margin-bottom: 35px;
+    }
+
+    .choice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .choice-card {
+        min-height: 190px;
+
+        padding: 24px 0;
+    }
+
+    .choice-card + .choice-card {
+        padding-left: 0;
+
+        border-left: 0;
+    }
+
+    .submission-section {
+        padding: 90px 0;
+    }
+
+    .submission-container {
+        grid-template-columns: 1fr;
+
+        gap: 60px;
+    }
+
+    .submission-intro {
+        position: static;
+    }
+
+    .accept-section {
+        padding: 90px 0;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .sell-donate-hero {
+        padding: 65px 0 75px;
+    }
+
+    .sell-donate-hero h1 {
+        font-size: 52px;
+
+        margin-bottom: 28px;
+    }
+
+    .sell-donate-hero-text {
+        font-size: 14px;
+    }
+
+    .how-it-works {
+        padding: 75px 0;
+    }
+
+    .sell-section-heading {
+        margin-bottom: 45px;
+    }
+
+    .sell-section-heading h2 {
+        font-size: 52px;
+    }
+
+    .choice-section {
+        padding-bottom: 75px;
+    }
+
+    .choice-card {
+        grid-template-columns: 35px 1fr 25px;
+
+        gap: 12px;
+    }
+
+    .choice-card h2 {
+        font-size: 24px;
+    }
+
+    .submission-section {
+        padding: 75px 0;
+    }
+
+    .submission-intro h2 {
+        font-size: 52px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+    }
+
+    .accept-section {
+        padding: 75px 0;
+    }
+
+    .accept-heading h2 {
+        font-size: 52px;
+    }
+
+    .accept-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .accept-item:nth-child(even) {
+        padding-left: 0;
+
+        border-left: 0;
+    }
+
+}
