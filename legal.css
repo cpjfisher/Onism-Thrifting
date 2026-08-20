@@ -1,0 +1,294 @@
+/* =========================================
+   LEGAL PAGES
+========================================= */
+
+.legal-page {
+    background: #f5f4f0;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.legal-hero {
+    padding: 110px 0 90px;
+
+    border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+.legal-hero h1 {
+    max-width: 1000px;
+
+    margin: 18px 0 25px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(60px, 9vw, 125px);
+
+    line-height: 0.84;
+
+    letter-spacing: -0.08em;
+
+    font-weight: 700;
+}
+
+.legal-hero h1 span {
+    display: block;
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px #111111;
+}
+
+.legal-updated {
+    font-size: 10px;
+
+    color: #888888;
+
+    letter-spacing: 0.04em;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.legal-content {
+    padding: 100px 0 130px;
+}
+
+.legal-grid {
+    display: grid;
+
+    grid-template-columns:
+        0.55fr 1.45fr;
+
+    gap: 100px;
+
+    align-items: start;
+}
+
+
+.legal-sidebar {
+    position: sticky;
+
+    top: 30px;
+
+    max-width: 260px;
+}
+
+.legal-sidebar p {
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    color: #888888;
+}
+
+
+/* =========================================
+   LEGAL BODY
+========================================= */
+
+.legal-body {
+    max-width: 780px;
+}
+
+.legal-body section {
+    margin-bottom: 60px;
+}
+
+.legal-body section:last-child {
+    margin-bottom: 0;
+}
+
+.legal-body h2 {
+    margin-bottom: 18px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 24px;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.035em;
+}
+
+.legal-body p {
+    margin-bottom: 16px;
+
+    font-size: 13px;
+
+    line-height: 1.85;
+
+    color: #666666;
+}
+
+.legal-body p:last-child {
+    margin-bottom: 0;
+}
+
+
+.legal-body ul {
+    margin: 20px 0 0;
+
+    padding-left: 20px;
+}
+
+.legal-body li {
+    margin-bottom: 10px;
+
+    padding-left: 4px;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    color: #666666;
+}
+
+
+/* =========================================
+   PLACEHOLDER BOX
+========================================= */
+
+.legal-placeholder {
+    margin-top: 25px;
+
+    padding: 20px;
+
+    border: 1px dashed rgba(17, 17, 17, 0.22);
+
+    background: #ebe9e3;
+}
+
+.legal-placeholder strong {
+    display: block;
+
+    margin-bottom: 15px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
+}
+
+.legal-placeholder p {
+    margin-bottom: 7px;
+
+    font-size: 11px;
+}
+
+.legal-placeholder p:last-child {
+    margin-bottom: 0;
+}
+
+.legal-placeholder span {
+    color: #111111;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CONTACT
+========================================= */
+
+.legal-contact {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    margin-top: 20px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+.legal-contact strong {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 15px;
+}
+
+.legal-contact a {
+    width: fit-content;
+
+    font-size: 12px;
+
+    color: #666666;
+
+    text-decoration: underline;
+
+    text-underline-offset: 3px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 850px) {
+
+    .legal-hero {
+        padding: 80px 0 70px;
+    }
+
+    .legal-content {
+        padding: 75px 0 90px;
+    }
+
+    .legal-grid {
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+    }
+
+    .legal-sidebar {
+        position: static;
+
+        max-width: 500px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .legal-hero {
+        padding: 65px 0 60px;
+    }
+
+    .legal-hero h1 {
+        font-size: 56px;
+    }
+
+    .legal-content {
+        padding: 65px 0 80px;
+    }
+
+    .legal-body section {
+        margin-bottom: 45px;
+    }
+
+    .legal-body h2 {
+        font-size: 21px;
+    }
+
+    .legal-body p,
+    .legal-body li {
+        font-size: 12px;
+    }
+
+    .legal-placeholder {
+        padding: 16px;
+    }
+
+}
