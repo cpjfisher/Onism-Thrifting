@@ -1,129 +1,52 @@
 // ==========================================
 // ONISM THRIFTING
-// SELL / DONATE PAGE
+// DONATE PAGE
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const choiceCards =
-        document.querySelectorAll(".choice-card");
-
-    const submissionType =
-        document.querySelector("#submission-type");
-
-    const formHeading =
-        document.querySelector("#form-heading");
-
-    const formDescription =
-        document.querySelector("#form-description");
+    const donateForm =
+        document.querySelector("#sell-form");
 
     const submitText =
         document.querySelector("#submit-text");
 
-    const sellForm =
-        document.querySelector("#sell-form");
+    const submissionType =
+        document.querySelector("#submission-type");
 
 
-    // ==========================================
-    // SELL / DONATE SWITCHER
-    // ==========================================
+    // Make sure the page always starts as Donate
 
-    choiceCards.forEach((card) => {
-
-        card.addEventListener("click", () => {
-
-            choiceCards.forEach((item) => {
-                item.classList.remove("active");
-            });
-
-            card.classList.add("active");
+    if (submissionType) {
+        submissionType.value = "Donate";
+    }
 
 
-            const choice =
-                card.dataset.choice;
+    // Form submission
 
+    if (donateForm) {
 
-            if (choice === "donate") {
+        donateForm.addEventListener("submit", (event) => {
 
-                submissionType.value =
-                    "Donate";
+            event.preventDefault();
 
-                formHeading.innerHTML =
-                    `DONATE YOUR <span>PIECES WITH US.</span>`;
+            submitText.textContent =
+                "Donation Request Received ✓";
 
-                formDescription.textContent =
-                    "Have clothes you no longer need? Tell us about them and we'll review your donation.";
+            donateForm.reset();
+
+            // Keep submission type as Donate
+            submissionType.value = "Donate";
+
+            setTimeout(() => {
 
                 submitText.textContent =
                     "Submit Donation";
 
-            } else {
-
-                submissionType.value =
-                    "Sell";
-
-                formHeading.innerHTML =
-                    `SELL YOUR <span>PIECES WITH US.</span>`;
-
-                formDescription.textContent =
-                    "Tell us a little about what you have. We'll review your submission and contact you with the next steps.";
-
-                submitText.textContent =
-                    "Submit Request";
-
-            }
+            }, 2500);
 
         });
 
-    });
-
-
-    // ==========================================
-    // FORM
-    // ==========================================
-
-    sellForm.addEventListener("submit", (event) => {
-
-        event.preventDefault();
-
-
-        const type =
-            submissionType.value;
-
-
-        submitText.textContent =
-            "Request Received ✓";
-
-
-        sellForm.reset();
-
-
-        // Restore default choice
-
-        submissionType.value =
-            type;
-
-
-        choiceCards.forEach((card) => {
-
-            card.classList.toggle(
-                "active",
-                card.dataset.choice ===
-                    type.toLowerCase()
-            );
-
-        });
-
-
-        setTimeout(() => {
-
-            submitText.textContent =
-                type === "Donate"
-                    ? "Submit Donation"
-                    : "Submit Request";
-
-        }, 2500);
-
-    });
+    }
 
 });
