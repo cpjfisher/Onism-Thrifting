@@ -90,15 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     loading="lazy"
                 >
 
-
-                <button
-                    type="button"
-                    class="product-wishlist"
-                    aria-label="Save ${product.name}"
-                >
-                    ♡
-                </button>
-
             </a>
 
 
@@ -163,41 +154,5 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
 
     }
-
-
-    // ==========================================
-    // WISHLIST
-    // ==========================================
-
-    const wishlistButtons =
-        newDropGrid.querySelectorAll(
-            ".product-wishlist"
-        );
-
-
-    wishlistButtons.forEach((button) => {
-
-        button.addEventListener(
-            "click",
-            (event) => {
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-                button.classList.toggle(
-                    "active"
-                );
-
-
-                button.textContent =
-                    button.classList.contains("active")
-                        ? "♥"
-                        : "♡";
-
-            }
-        );
-
-    });
 
 });

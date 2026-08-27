@@ -104,15 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     loading="lazy"
                 >
 
-
-                <button
-                    type="button"
-                    class="shop-wishlist"
-                    aria-label="Add ${product.name} to wishlist"
-                >
-                    ♡
-                </button>
-
             </a>
 
 
@@ -318,9 +309,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-
-        initialiseWishlists();
-
     }
 
 
@@ -413,53 +401,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
-
-
-    // ======================================
-    // WISHLIST
-    // ======================================
-
-    function initialiseWishlists() {
-
-        const wishlistButtons =
-            document.querySelectorAll(
-                ".shop-wishlist"
-            );
-
-
-        wishlistButtons.forEach(
-            (button) => {
-
-
-                button.addEventListener(
-                    "click",
-                    (event) => {
-
-                        event.preventDefault();
-
-                        event.stopPropagation();
-
-
-                        button.classList.toggle(
-                            "active"
-                        );
-
-
-                        button.textContent =
-                            button.classList.contains(
-                                "active"
-                            )
-                                ? "♥"
-                                : "♡";
-
-                    }
-                );
-
-            }
-        );
-
-    }
-
 
     // ======================================
     // URL CATEGORY

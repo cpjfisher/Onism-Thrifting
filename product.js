@@ -126,18 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-    const wishlistButton =
-        document.querySelector(
-            "#wishlist-button"
-        );
-
-
-    const wishlistTextButton =
-        document.querySelector(
-            "#wishlist-text-button"
-        );
-
-
     const addToCartButton =
         document.querySelector(
             "#add-to-cart"
@@ -377,52 +365,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
     );
-
-
-    // ======================================
-    // WISHLIST
-    // ======================================
-
-    function toggleWishlist() {
-
-
-        const active =
-            wishlistButton.classList.toggle(
-                "active"
-            );
-
-
-        wishlistTextButton.classList.toggle(
-            "active",
-            active
-        );
-
-
-        wishlistButton.textContent =
-            active
-                ? "♥"
-                : "♡";
-
-
-        wishlistTextButton.textContent =
-            active
-                ? "♥ Saved"
-                : "♡ Save for later";
-
-    }
-
-
-    wishlistButton.addEventListener(
-        "click",
-        toggleWishlist
-    );
-
-
-    wishlistTextButton.addEventListener(
-        "click",
-        toggleWishlist
-    );
-
 
     // ======================================
     // PURCHASE BUTTON
