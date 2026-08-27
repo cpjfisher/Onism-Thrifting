@@ -1,8 +1,8 @@
 /* =========================================
-   SELL / DONATE PAGE
+   DONATE PAGE
 ========================================= */
 
-.sell-donate-page {
+.donate-page {
     background: #f5f4f0;
 }
 
@@ -11,13 +11,13 @@
    HERO
 ========================================= */
 
-.sell-donate-hero {
+.donate-hero {
     padding: 115px 0 120px;
 
     border-bottom: 1px solid rgba(17, 17, 17, 0.12);
 }
 
-.sell-donate-hero h1 {
+.donate-hero h1 {
     max-width: 1100px;
 
     margin-bottom: 38px;
@@ -33,7 +33,7 @@
     font-weight: 700;
 }
 
-.sell-donate-hero h1 span {
+.donate-hero h1 span {
     display: block;
 
     color: transparent;
@@ -41,7 +41,7 @@
     -webkit-text-stroke: 1.2px #111111;
 }
 
-.sell-donate-hero-text {
+.donate-hero-text {
     max-width: 560px;
 
     font-size: 17px;
@@ -147,7 +147,7 @@
 
 
 /* =========================================
-   SELL / DONATE CHOICE
+   DONATE CHOICE
 ========================================= */
 
 .choice-section {
@@ -583,7 +583,7 @@
 
 @media (max-width: 850px) {
 
-    .sell-donate-hero {
+    .donate-hero {
         padding: 85px 0 90px;
     }
 
@@ -650,17 +650,17 @@
 
 @media (max-width: 600px) {
 
-    .sell-donate-hero {
+    .donate-hero {
         padding: 65px 0 75px;
     }
 
-    .sell-donate-hero h1 {
+    .donate-hero h1 {
         font-size: 52px;
 
         margin-bottom: 28px;
     }
 
-    .sell-donate-hero-text {
+    .donate-hero-text {
         font-size: 14px;
     }
 

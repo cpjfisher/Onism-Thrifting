@@ -1,16 +1,18 @@
 // ==========================================
-// ONISM THRIFTING - SHOP
+// ONISM THRIFTING
+// SHOP SYSTEM
 // ==========================================
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
+
+    // ======================================
+    // ELEMENTS
+    // ======================================
+
     const productGrid =
         document.querySelector("#product-grid");
-
-    const products =
-        Array.from(
-            document.querySelectorAll(".shop-product-card")
-        );
 
     const categoryTabs =
         document.querySelectorAll(".category-tab");
@@ -28,216 +30,446 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(".reset-filters");
 
 
-    if (!productGrid || !products.length) {
+    // ======================================
+    // SAFETY CHECK
+    // ======================================
+
+    if (!productGrid) {
         return;
     }
 
 
+    if (!Array.isArray(products)) {
+
+        console.error(
+            "Onism Thrifting: products.js could not be loaded."
+        );
+
+        return;
+
+    }
+
+
+    // ======================================
+    // STATE
+    // ======================================
+
     let currentCategory = "all";
 
 
-    // ==========================================
-    // FILTER + SORT
-    // ==========================================
+    // ======================================
+    // CREATE PRODUCT CARD
+    // ======================================
 
-    function updateProducts() {
+    function createProductCard(product) {
 
-        let visibleProducts =
-            products.filter((product) => {
+        const article =
+            document.createElement("article");
 
-                if (currentCategory === "all") {
-                    return true;
+        article.className =
+            "shop-product-card";
+
+
+        article.dataset.category =
+            product.category;
+
+        article.dataset.gender =
+            product.gender;
+
+        article.dataset.price =
+            product.price;
+
+
+        article.innerHTML = `
+
+            <a
+                href="product.html?id=${encodeURIComponent(product.id)}"
+                class="shop-product-image"
+            >
+
+                ${
+                    product.badge
+                        ? `
+                            <span class="shop-product-badge">
+                                ${product.badge}
+                            </span>
+                          `
+                        : ""
                 }
 
-                const categories =
-                    product.dataset.category
-                        .toLowerCase()
-                        .split(" ");
 
-                if (currentCategory === "under-200") {
-
-                    return Number(
-                        product.dataset.price
-                    ) <= 200;
-
-                }
-
-                return categories.includes(
-                    currentCategory
-                );
-
-            });
+                <img
+                    src="${product.images[0]}"
+                    alt="${product.name}"
+                    loading="lazy"
+                >
 
 
-        // Sort products
+                <button
+                    type="button"
+                    class="shop-wishlist"
+                    aria-label="Add ${product.name} to wishlist"
+                >
+                    ♡
+                </button>
+
+            </a>
+
+
+            <div class="shop-product-info">
+
+                <div>
+
+                    <h2>
+                        ${product.name}
+                    </h2>
+
+                    <p>
+                        Size ${product.size} · ${product.condition}
+                    </p>
+
+                </div>
+
+                <strong>
+                    R${product.price}
+                </strong>
+
+            </div>
+
+        `;
+
+
+        return article;
+
+    }
+
+
+    // ======================================
+    // FILTER PRODUCTS
+    // ======================================
+
+    function filterProducts() {
+
+        return products.filter((product) => {
+
+
+            // Don't display unavailable products
+
+            if (!product.available) {
+                return false;
+            }
+
+
+            // All
+
+            if (currentCategory === "all") {
+                return true;
+            }
+
+
+            // Under R200
+
+            if (currentCategory === "under-200") {
+
+                return product.price <= 200;
+
+            }
+
+
+            // Gender
+
+            if (
+                currentCategory === "men" ||
+                currentCategory === "women" ||
+                currentCategory === "unisex"
+            ) {
+
+                return product.gender ===
+                    currentCategory;
+
+            }
+
+
+            // Clothing category
+
+            if (
+                currentCategory === "tops" ||
+                currentCategory === "bottoms" ||
+                currentCategory === "jackets" ||
+                currentCategory === "dresses" ||
+                currentCategory === "shoes"
+            ) {
+
+                return product.category ===
+                    currentCategory;
+
+            }
+
+
+            return false;
+
+        });
+
+    }
+
+
+    // ======================================
+    // SORT PRODUCTS
+    // ======================================
+
+    function sortProducts(productList) {
+
+        const sorted =
+            [...productList];
+
 
         const sortValue =
-            sortSelect.value;
+            sortSelect
+                ? sortSelect.value
+                : "newest";
 
 
-        visibleProducts.sort((a, b) => {
+        if (sortValue === "price-low") {
 
-            const priceA =
-                Number(a.dataset.price);
+            sorted.sort(
+                (a, b) => a.price - b.price
+            );
 
-            const priceB =
-                Number(b.dataset.price);
-
-            const indexA =
-                Number(a.dataset.index);
-
-            const indexB =
-                Number(b.dataset.index);
+        }
 
 
-            if (sortValue === "price-low") {
-                return priceA - priceB;
-            }
+        else if (sortValue === "price-high") {
+
+            sorted.sort(
+                (a, b) => b.price - a.price
+            );
+
+        }
 
 
-            if (sortValue === "price-high") {
-                return priceB - priceA;
-            }
+        else {
+
+            // Newest products first
+
+            sorted.sort(
+                (a, b) =>
+                    Number(b.newDrop) -
+                    Number(a.newDrop)
+            );
+
+        }
 
 
-            // Newest
-            return indexA - indexB;
+        return sorted;
+
+    }
+
+
+    // ======================================
+    // RENDER PRODUCTS
+    // ======================================
+
+    function renderProducts() {
+
+        const filteredProducts =
+            filterProducts();
+
+
+        const sortedProducts =
+            sortProducts(filteredProducts);
+
+
+        productGrid.innerHTML = "";
+
+
+        sortedProducts.forEach((product) => {
+
+            const card =
+                createProductCard(product);
+
+
+            productGrid.appendChild(card);
 
         });
 
 
-        // Hide everything
+        // Update product count
 
-        products.forEach((product) => {
-            product.style.display = "none";
-        });
+        if (productCount) {
 
+            productCount.textContent =
+                sortedProducts.length;
 
-        // Display matching products
-
-        visibleProducts.forEach((product) => {
-            product.style.display = "block";
-            productGrid.appendChild(product);
-        });
-
-
-        // Update count
-
-        productCount.textContent =
-            visibleProducts.length;
+        }
 
 
         // Empty state
 
-        if (visibleProducts.length === 0) {
+        if (
+            emptyState &&
+            sortedProducts.length === 0
+        ) {
 
             emptyState.hidden = false;
 
-        } else {
+        } else if (emptyState) {
 
             emptyState.hidden = true;
 
         }
 
+
+        initialiseWishlists();
+
     }
 
 
-    // ==========================================
+    // ======================================
     // CATEGORY BUTTONS
-    // ==========================================
+    // ======================================
 
     categoryTabs.forEach((tab) => {
 
         tab.addEventListener("click", () => {
 
+
             categoryTabs.forEach((item) => {
-                item.classList.remove("active");
+
+                item.classList.remove(
+                    "active"
+                );
+
             });
 
-            tab.classList.add("active");
+
+            tab.classList.add(
+                "active"
+            );
+
 
             currentCategory =
                 tab.dataset.category;
 
-            updateProducts();
+
+            renderProducts();
 
         });
 
     });
 
 
-    // ==========================================
+    // ======================================
     // SORT
-    // ==========================================
+    // ======================================
 
-    sortSelect.addEventListener(
-        "change",
-        updateProducts
-    );
+    if (sortSelect) {
+
+        sortSelect.addEventListener(
+            "change",
+            renderProducts
+        );
+
+    }
 
 
-    // ==========================================
+    // ======================================
     // RESET
-    // ==========================================
+    // ======================================
 
-    resetButton.addEventListener("click", () => {
+    if (resetButton) {
 
-        currentCategory = "all";
+        resetButton.addEventListener(
+            "click",
+            () => {
 
-        categoryTabs.forEach((tab) => {
+                currentCategory =
+                    "all";
 
-            tab.classList.toggle(
-                "active",
-                tab.dataset.category === "all"
+
+                categoryTabs.forEach(
+                    (tab) => {
+
+                        tab.classList.toggle(
+                            "active",
+                            tab.dataset.category ===
+                                "all"
+                        );
+
+                    }
+                );
+
+
+                if (sortSelect) {
+
+                    sortSelect.value =
+                        "newest";
+
+                }
+
+
+                renderProducts();
+
+            }
+        );
+
+    }
+
+
+    // ======================================
+    // WISHLIST
+    // ======================================
+
+    function initialiseWishlists() {
+
+        const wishlistButtons =
+            document.querySelectorAll(
+                ".shop-wishlist"
             );
 
-        });
 
-        sortSelect.value = "newest";
-
-        updateProducts();
-
-    });
+        wishlistButtons.forEach(
+            (button) => {
 
 
-    // ==========================================
-    // WISHLIST
-    // ==========================================
+                button.addEventListener(
+                    "click",
+                    (event) => {
 
-    const wishlistButtons =
-        document.querySelectorAll(".shop-wishlist");
+                        event.preventDefault();
 
-
-    wishlistButtons.forEach((button) => {
-
-        button.addEventListener("click", (event) => {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
-            button.classList.toggle("active");
-
-            button.textContent =
-                button.classList.contains("active")
-                    ? "♥"
-                    : "♡";
-
-        });
-
-    });
+                        event.stopPropagation();
 
 
-    // ==========================================
+                        button.classList.toggle(
+                            "active"
+                        );
+
+
+                        button.textContent =
+                            button.classList.contains(
+                                "active"
+                            )
+                                ? "♥"
+                                : "♡";
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    // ======================================
     // URL CATEGORY
-    // Example:
-    // shop.html?category=under-200
-    // ==========================================
+    // ======================================
 
     const params =
         new URLSearchParams(
             window.location.search
         );
+
 
     const urlCategory =
         params.get("category");
@@ -250,13 +482,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 `.category-tab[data-category="${urlCategory}"]`
             );
 
+
         if (matchingTab) {
 
-            categoryTabs.forEach((tab) => {
-                tab.classList.remove("active");
-            });
 
-            matchingTab.classList.add("active");
+            categoryTabs.forEach(
+                (tab) => {
+
+                    tab.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+            matchingTab.classList.add(
+                "active"
+            );
+
 
             currentCategory =
                 urlCategory;
@@ -266,8 +510,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // Initial render
+    // ======================================
+    // INITIAL RENDER
+    // ======================================
 
-    updateProducts();
+    renderProducts();
 
 });
