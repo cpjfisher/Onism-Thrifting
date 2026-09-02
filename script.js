@@ -65,4 +65,42 @@ if (menuToggle && mobileMenu) {
         });
 
     });
+
+// ==========================================
+// HEADER SEARCH
+// ==========================================
+
+const searchToggle = document.getElementById("searchToggle");
+const searchForm = document.getElementById("searchForm");
+const searchInput = document.getElementById("searchInput");
+
+if (searchToggle && searchForm && searchInput) {
+
+    // Open / close search bar
+    searchToggle.addEventListener("click", () => {
+
+        searchForm.classList.toggle("active");
+
+        if (searchForm.classList.contains("active")) {
+            searchInput.focus();
+        }
+
+    });
+
+    // Submit search
+    searchForm.addEventListener("submit", (event) => {
+
+        event.preventDefault();
+
+        const searchTerm = searchInput.value.trim();
+
+        if (searchTerm) {
+
+            window.location.href =
+                `shop.html?q=${encodeURIComponent(searchTerm)}`;
+
+        }
+
+    });
+}
 }

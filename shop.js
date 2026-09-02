@@ -56,6 +56,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentCategory = "all";
 
+    const searchParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+    let searchQuery =
+    (
+        searchParams.get("q") || ""
+    )
+    .trim()
+    .toLowerCase();
+
 
     // ======================================
     // CREATE PRODUCT CARD
@@ -147,14 +159,53 @@ document.addEventListener("DOMContentLoaded", () => {
             // Don't display unavailable products
 
             if (!product.available) {
-                return false;
+            return false;
             }
 
+
+            // ==================================
+            // SEARCH
+            // ==================================
+
+            if (searchQuery) {
+
+                const searchableText = `
+
+                    ${product.name || ""}
+                    ${product.category || ""}
+                    ${product.gender || ""}
+                    ${product.size || ""}
+                    ${product.condition || ""}
+                    ${product.brand || ""}
+                    ${product.colour || ""}
+                    ${product.color || ""}
+                    ${product.description || ""}
+                    ${product.price || ""}
+
+                `.toLowerCase();
+
+
+                if (
+                    !searchableText.includes(
+                        searchQuery
+                    )
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+
+            // ==================================
+            // CATEGORY FILTERS
+            // ==================================
 
             // All
 
             if (currentCategory === "all") {
-                return true;
+            return true;
             }
 
 
@@ -163,6 +214,15 @@ document.addEventListener("DOMContentLoaded", () => {
             if (currentCategory === "under-200") {
 
                 return product.price <= 200;
+
+            }
+
+
+            // New Drop
+
+            if (currentCategory === "new") {
+
+                return product.newDrop === true;
 
             }
 
