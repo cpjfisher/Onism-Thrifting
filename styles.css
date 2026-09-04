@@ -54,6 +54,17 @@ button {
     margin-inline: auto;
 }
 
+/* =========================================
+   SHIPPING BANNER
+========================================= */
+.shipping-banner {
+    background: #111;
+    color: #fff;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+}
 
 /* =========================================
    HEADER

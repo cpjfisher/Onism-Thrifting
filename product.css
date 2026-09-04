@@ -219,6 +219,13 @@
     letter-spacing: -0.03em;
 }
 
+.shipping-note {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+}
+
 
 /* =========================================
    META
