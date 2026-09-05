@@ -81,83 +81,128 @@
                 </nav> 
             </div> 
         </header> 
-        
-        <!-- ========================= 
-         ABOUT PAGE ========================== --> 
-         
-         <main class="about-page"> 
-            <!-- ================================= 
-             ABOUT HERO ================================== --> 
-             <section class="about-hero">
-                <div class="container"> 
-                    <p class="section-eyebrow"> ABOUT ONISM </p> 
-                    <h1> FASHION WITH <span>ANOTHER CHANCE.</span> </h1> 
-                    <p class="about-hero-intro"> Onism Thrifting is a curated online thrift store built around a simple idea: great style doesn't need a great big price tag. </p> 
-                </div> 
-            </section> 
-            
-            <!-- ================================= 
-             OUR STORY ================================== --> 
-             <section class="about-story"> 
-                <div class="container about-story-grid"> 
-                    <div class="about-story-label"> 
-                        <p class="section-eyebrow"> OUR STORY </p> 
-                    </div> 
-                    <div class="about-story-content"> 
-                        <h2> GOOD CLOTHES SHOULDN'T BE <span>WASTED.</span> </h2> 
-                        <p> We started Onism Thrifting with a love for clothing and a belief that looking good shouldn't always mean buying new. </p> 
-                        <p> Many great pieces spend months or years sitting unworn in wardrobes. We wanted to give those clothes another opportunity — putting them in front of someone who will actually wear and enjoy them. </p> 
-                        <p> So we curate pre-loved clothing, keep our prices accessible and let each piece find its next owner. </p> 
-                    </div> 
-                </div> 
-            </section> 
 
-            <!-- ================================= 
-             WHAT WE BELIEVE ================================== --> 
-             <section class="about-beliefs"> 
-                <div class="container"> 
-                    <div class="beliefs-heading"> 
-                        <p class="section-eyebrow"> WHAT WE BELIEVE </p> 
-                        <h2> LESS SPENDING. <span>MORE STYLE.</span> </h2> 
-                    </div> 
-                    <div class="beliefs-grid"> 
-                        <div class="belief"> 
-                            <span class="belief-number"> 01 </span> 
-                            <h3> Affordable </h3> 
-                            <p> Fashion should be accessible. We aim to keep our pieces at prices that make sense. </p> 
-                        </div> 
-                        <div class="belief"> <span class="belief-number"> 02 </span> 
-                            <h3> Curated </h3> 
-                            <p> We don't want to fill your feed with endless clothing. We want to find pieces worth wearing. </p> 
-                        </div> 
-                        <div class="belief"> <span class="belief-number"> 03 </span> 
-                            <h3> Pre-loved </h3> 
-                            <p> Every piece has already had a life. We're simply helping it find its next one. </p> 
-                        </div> 
-                    </div> 
-                </div> 
-            </section> 
-            
-            <!-- ================================= 
-             DONATE CTA ================================== --> 
-             <section class="about-cta"> 
-                <div class="container"> 
-                    <div class="about-cta-inner"> 
-                        <div> 
-                            <p class="section-eyebrow"> KEEP THE CYCLE GOING </p>
-                            <h2> GOT CLOTHES <span>YOU DON'T WEAR?</span> 
-                            </h2> 
-                        </div> 
-                        <div class="about-cta-action"> 
-                            <p> Give your wardrobe a second purpose and help someone else discover their next favourite piece. </p> 
-                            <a href="donate.html" class="about-cta-button" >Donate <span>→</span> </a> 
-                        </div> 
-                    </div> 
-                </div> 
-            </section> 
-        </main> 
-        
         <!-- ========================= 
+         MAIN CONTENT ========================== -->
+         <main class="cart-page">
+
+            <div class="container">
+
+                <div class="cart-heading">
+                    <p>YOUR BAG</p>
+                    <h1>Your Cart</h1>
+                </div>
+
+
+                <!-- Empty Cart -->
+                <div
+                    id="cart-empty"
+                    class="cart-empty"
+                    hidden
+                >
+                    <h2>Your cart is empty.</h2>
+
+                    <p>
+                        Looks like you haven't added
+                        anything yet.
+                    </p>
+
+                    <a href="shop.html">
+                        Continue Shopping →
+                    </a>
+                </div>
+
+
+                <!-- Cart -->
+                <div
+                    id="cart-content"
+                    class="cart-content"
+                >
+
+                <!-- Products -->
+                <div
+                    id="cart-items"
+                    class="cart-items"
+                ></div>
+
+
+                <!-- Order Summary -->
+                <aside class="cart-summary">
+
+                    <h2>
+                        Order Summary
+                    </h2>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong id="cart-subtotal">
+                            R0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Shipping
+                        </span>
+
+                        <strong id="cart-shipping">
+                            R60
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row cart-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong id="cart-total">
+                            R0
+                        </strong>
+
+                    </div>
+
+
+                    <p
+                        id="free-shipping-message"
+                        class="free-shipping-message"
+                    ></p>
+
+
+                    <a
+                        href="checkout.html"
+                        id="checkout-button"
+                        class="checkout-button"
+                    >
+                        Proceed to Checkout
+                    </a>
+
+
+                    <a
+                        href="shop.html"
+                        class="continue-shopping"
+                    >
+                        Continue Shopping
+                    </a>
+
+                </aside>
+
+            </div>
+
+            </div>
+
+        </main>
+                <!-- ========================= 
          FOOTER ========================== --> 
          <footer class="site-footer"> 
             <div class="container footer-container"> 
@@ -199,7 +244,9 @@
             </div> 
         </footer> 
         
-        <script src="script.js"></script> 
+        <script src="product.js"></script>
+        <script src="products.js"></script>
         <script src="cart.js"></script>
+        <script src="script.js"></script> 
     </body> 
 </html>

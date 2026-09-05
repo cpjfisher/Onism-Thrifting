@@ -1,0 +1,446 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" > 
+        <title>About | Onism Thrifting</title> 
+        <meta name="description" content="Learn more about Onism Thrifting and our approach to affordable, curated pre-loved fashion." > 
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" > 
+        
+        <link rel="stylesheet" href="styles.css"> 
+        <link rel="stylesheet" href="about.css"> 
+    </head> 
+    
+    <body> 
+
+        <!-- ========================= 
+         SHIPPING BANNER ========================== -->
+        <div class="shipping-banner">
+        Free shipping on orders over R500
+        </div>
+
+        <!-- ========================= HEADER 
+         ========================== --> 
+         <header class="site-header"> 
+            <div class="container nav-container"> 
+                <a href="index.html" class="logo"> ONISM<span>THRIFTING</span> </a> 
+                
+                <nav class="main-nav" aria-label="Main navigation"> 
+                    <a href="shop.html"> Shop </a> 
+                    <a href="index.html#new-drop"> New Drop </a> 
+                    <a href="shop.html?category=under-200"> Under R200 </a> 
+                    <a href="about.html" class="active"> About </a> 
+                    <a href="index.html#donate"> Donate </a> 
+                </nav> 
+                
+                <div class="nav-actions"> 
+                    <button class="icon-button" id="searchToggle" aria-label="Search" > 
+                        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" > 
+                            <circle cx="11" cy="11" r="7"></circle> 
+                            <line x1="20" y1="20" x2="16.2" y2="16.2" ></line> 
+                        </svg> 
+                    </button> 
+
+                                        <!-- Search Form -->
+                <form id="searchForm" class="header-search">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search items..."
+                        aria-label="Search products"
+                        autocomplete="off"
+                    >
+                </form>
+                    
+                    <button class="icon-button cart-button" aria-label="Shopping cart" > 
+                        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" > 
+                            <circle cx="9" cy="20" r="1"></circle> 
+                            <circle cx="19" cy="20" r="1"></circle> 
+                            <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 2-1.6L21 8H6"></path> 
+                        </svg> 
+                        <span class="cart-count"> 0 </span> 
+                    </button> 
+                    
+                    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" > 
+                        <span></span> 
+                        <span></span> 
+                        <span></span> 
+                    </button> 
+                </div> 
+            </div> 
+            
+            <div class="mobile-menu"> 
+                <nav aria-label="Mobile navigation"> 
+                    <a href="shop.html"> Shop </a> 
+                    <a href="index.html#new-drop"> New Drop </a> 
+                    <a href="shop.html?category=under-200"> Under R200 </a> 
+                    <a href="about.html"> About </a> 
+                    <a href="index.html#donate"> Donate </a> 
+                </nav> 
+            </div> 
+        </header>
+
+        <!-- ========================= MAIN CONTENT 
+         ========================== --> 
+
+         <main class="checkout-page">
+
+            <div class="container">
+
+                <div class="checkout-heading">
+                    <p>CHECKOUT</p>
+                    <h1>Complete Your Order</h1>
+                </div>
+
+
+                <div
+                    id="checkout-empty"
+                    class="checkout-empty"
+                    hidden
+                >
+                    <h2>Your cart is empty.</h2>
+
+                    <p>
+                        Add something to your cart before checking out.
+                    </p>
+
+                    <a href="shop.html">
+                        Back to Shop →
+                    </a>
+                </div>
+
+
+                <div
+                    id="checkout-content"
+                    class="checkout-layout"
+                >
+
+                    <!-- CUSTOMER DETAILS -->
+                    <section class="checkout-details">
+
+                        <form id="checkout-form">
+
+                            <h2>Contact Details</h2>
+
+                            <div class="checkout-field">
+                                <label for="checkout-email">
+                                    Email
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="checkout-email"
+                                    name="email"
+                                    required
+                                >
+                            </div>
+
+
+                            <div class="checkout-field">
+                                <label for="checkout-phone">
+                                    Phone / WhatsApp Number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="checkout-phone"
+                                    name="phone"
+                                    required
+                                >
+                            </div>
+
+
+                            <h2>Delivery Details</h2>
+
+
+                            <div class="checkout-name-grid">
+
+                                <div class="checkout-field">
+
+                                    <label for="checkout-first-name">
+                                        First Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="checkout-first-name"
+                                        name="firstName"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="checkout-field">
+
+                                    <label for="checkout-last-name">
+                                        Last Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="checkout-last-name"
+                                        name="lastName"
+                                        required
+                                    >
+
+                                </div>
+
+
+                            </div>
+
+
+                    <div class="checkout-field">
+
+                        <label for="checkout-address">
+                            Street Address
+                        </label>
+
+                        <input
+                            type="text"
+                            id="checkout-address"
+                            name="address"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="checkout-field">
+
+                        <label for="checkout-suburb">
+                            Suburb
+                        </label>
+
+                        <input
+                            type="text"
+                            id="checkout-suburb"
+                            name="suburb"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="checkout-name-grid">
+
+                        <div class="checkout-field">
+
+                            <label for="checkout-city">
+                                City / Town
+                            </label>
+
+                            <input
+                                type="text"
+                                id="checkout-city"
+                                name="city"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="checkout-field">
+
+                            <label for="checkout-postal-code">
+                                Postal Code
+                            </label>
+
+                            <input
+                                type="text"
+                                id="checkout-postal-code"
+                                name="postalCode"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="checkout-field">
+
+                        <label for="checkout-province">
+                            Province
+                        </label>
+
+                        <select
+                            id="checkout-province"
+                            name="province"
+                            required
+                        >
+                            <option value="">
+                                Select province
+                            </option>
+
+                            <option value="Eastern Cape">
+                                Eastern Cape
+                            </option>
+
+                            <option value="Free State">
+                                Free State
+                            </option>
+
+                            <option value="Gauteng">
+                                Gauteng
+                            </option>
+
+                            <option value="KwaZulu-Natal">
+                                KwaZulu-Natal
+                            </option>
+
+                            <option value="Limpopo">
+                                Limpopo
+                            </option>
+
+                            <option value="Mpumalanga">
+                                Mpumalanga
+                            </option>
+
+                            <option value="Northern Cape">
+                                Northern Cape
+                            </option>
+
+                            <option value="North West">
+                                North West
+                            </option>
+
+                            <option value="Western Cape">
+                                Western Cape
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="pay-button"
+                        class="pay-button"
+                    >
+                        Continue to Payment
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- ORDER SUMMARY -->
+            <aside class="checkout-summary">
+
+                <h2>
+                    Your Order
+                </h2>
+
+
+                <div
+                    id="checkout-items"
+                    class="checkout-items"
+                ></div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong id="checkout-subtotal">
+                        R0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Shipping
+                    </span>
+
+                    <strong id="checkout-shipping">
+                        R0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row cart-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="checkout-total">
+                        R0
+                    </strong>
+
+                </div>
+
+
+                <p
+                    id="checkout-shipping-message"
+                    class="free-shipping-message"
+                ></p>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</main>
+
+                <!-- ========================= 
+         FOOTER ========================== --> 
+         <footer class="site-footer"> 
+            <div class="container footer-container"> 
+                <div class="footer-main"> 
+                    <div class="footer-brand"> 
+                        <a href="index.html" class="footer-logo" > ONISM<span>THRIFTING</span> </a> 
+                        <p> Good style. Not the price tag. </p> 
+                    </div> 
+                    <div class="footer-column"> 
+                        <p class="footer-heading"> SHOP </p> 
+                        <a href="shop.html"> Shop All </a> 
+                        <a href="index.html#new-drop"> New Drop </a> 
+                        <a href="shop.html?category=men"> Men </a> 
+                        <a href="shop.html?category=women"> Women </a> 
+                        <a href="shop.html?category=under-200"> Under R200 </a> 
+                    </div> <div class="footer-column"> 
+                        <p class="footer-heading"> INFORMATION </p> 
+                        <a href="about.html"> About Us </a> 
+                        <a href="donate.html"> Donate Clothes </a> 
+                        <a href="faq.html"> FAQ </a> 
+                        <a href="contact.html"> Contact </a> 
+                    </div> 
+                    <div class="footer-column"> 
+                        <p class="footer-heading"> FOLLOW </p> 
+                        <a href="https://www.instagram.com/onismthrifting" target="_blank" rel="noopener noreferrer"> Instagram </a> 
+                        <a href="https://www.tiktok.com/@onismthrifting" target="_blank" rel="noopener noreferrer"> TikTok </a> 
+                        <a href="https://www.facebook.com/profile.php?id=61593666105849" target="_blank" rel="noopener noreferrer"> Facebook </a> 
+                    </div> 
+                </div> 
+                <div class="footer-bottom"> 
+                    <p> © 2026 Onism Thrifting. All rights reserved. </p> 
+                    <div class="footer-legal"> 
+                        <a href="privacy.html"> Privacy Policy </a> 
+                        <a href="terms.html"> Terms & Conditions </a> 
+                        <a href="returns.html"> Returns Policy </a> 
+                        <a href="shipping.html"> Shipping </a>
+                    </div> 
+                </div> 
+            </div> 
+        </footer> 
+        
+        <script src="product.js"></script>
+        <script src="products.js"></script>
+        <script src="cart.js"></script>
+        <script src="checkout.js"></script>
+        <script src="script.js"></script> 
+    </body> 
+</html>

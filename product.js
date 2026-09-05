@@ -367,40 +367,42 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     // ======================================
-    // PURCHASE BUTTON
-    // ======================================
-    //
-    // For now this stays as a placeholder.
-    //
-    // Later we'll connect this to PayFast.
-    //
+    // ADD TO CART
     // ======================================
 
     if (addToCartButton) {
 
-        addToCartButton.addEventListener(
-            "click",
-            () => {
+        // Disable button if item is unavailable
+        if (!product.available) {
 
-                console.log(
-                    "Product selected:",
-                    product.id
-                );
+            addToCartButton.disabled = true;
+            addToCartButton.textContent = "Sold Out";
 
+        } else {
 
-                addToCartButton.innerHTML =
-                    "Selected ✓";
+            addToCartButton.addEventListener(
+                "click",
+                () => {
 
+                    addToCart(product.id);    
+  
 
-                setTimeout(() => {
 
                     addToCartButton.innerHTML =
-                        `Add to Cart <span>→</span>`;
+                        "Added to Cart ✓";
 
-                }, 1800);
 
-            }
-        );
+                    setTimeout(() => {
+
+                        addToCartButton.innerHTML =
+                            `Add to Cart <span>→</span>`;
+
+                    }, 1800);
+
+                }
+            );
+
+        }
 
     }
 
