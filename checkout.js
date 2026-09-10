@@ -265,43 +265,201 @@ document.addEventListener(
         // ======================================
 
         checkoutForm.addEventListener(
-            "submit",
-            (event) => {
+    "submit",
+    async (event) => {
 
-                event.preventDefault();
-
-
-                const formData =
-                    new FormData(
-                        checkoutForm
-                    );
+        event.preventDefault();
 
 
-                const customerDetails =
-                    Object.fromEntries(
-                        formData.entries()
-                    );
+        // ======================================
+        // DISABLE PAYMENT BUTTON
+        // ======================================
+
+        const payButton =
+            document.querySelector(
+                "#pay-button"
+            );
 
 
-                console.log(
-                    "Customer:",
-                    customerDetails
+        if (payButton) {
+
+            payButton.disabled =
+                true;
+
+            payButton.textContent =
+                "Preparing Payment...";
+
+        }
+
+
+        try {
+
+            // ======================================
+            // CUSTOMER DETAILS
+            // ======================================
+
+            const formData =
+                new FormData(
+                    checkoutForm
                 );
 
 
-                console.log(
-                    "Order total:",
-                    total
+            const customerDetails =
+                Object.fromEntries(
+                    formData.entries()
                 );
 
 
-                alert(
-                    "Checkout details captured successfully. PayFast connection is next."
+            // ======================================
+            // SEND ORDER TO SERVER
+            // ======================================
+
+            const response =
+                await fetch(
+                    "/api/create-payment",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                customer:
+                                    customerDetails,
+
+                                products:
+                                    cartProducts.map(
+                                        product => ({
+                                            id:
+                                                product.id,
+
+                                            name:
+                                                product.name,
+
+                                            price:
+                                                Number(
+                                                    product.price
+                                                )
+                                        })
+                                    ),
+
+                                subtotal,
+
+                                shipping,
+
+                                total
+
+                            })
+
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.error ||
+                    "Unable to prepare payment."
                 );
 
             }
-        );
 
+
+            // ======================================
+            // CREATE PAYFAST FORM
+            // ======================================
+
+            const payFastForm =
+                document.createElement(
+                    "form"
+                );
+
+
+            payFastForm.method =
+                "POST";
+
+
+            payFastForm.action =
+                result.paymentUrl;
+
+
+            Object.entries(
+                result.paymentData
+            )
+                .forEach(
+                    ([name, value]) => {
+
+                        const input =
+                            document.createElement(
+                                "input"
+                            );
+
+
+                        input.type =
+                            "hidden";
+
+                        input.name =
+                            name;
+
+                        input.value =
+                            value;
+
+
+                        payFastForm.appendChild(
+                            input
+                        );
+
+                    }
+                );
+
+
+            document.body.appendChild(
+                payFastForm
+            );
+
+
+            // ======================================
+            // REDIRECT TO PAYFAST
+            // ======================================
+
+            payFastForm.submit();
+
+
+        } catch (error) {
+
+            console.error(
+                error
+            );
+
+
+            alert(
+                "We couldn't start the payment. Please try again."
+            );
+
+
+            if (payButton) {
+
+                payButton.disabled =
+                    false;
+
+                payButton.textContent =
+                    "Continue to Payment";
+
+            }
+
+        }
+
+    }
+);
 
     }
 );
