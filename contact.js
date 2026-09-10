@@ -1,36 +1,68 @@
+// ==========================================
+// ONISM THRIFTING
+// CONTACT FORM
+// ==========================================
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    const form = document.querySelector("#contact-form");
-    const status = document.querySelector("#contact-status");
+    const form =
+        document.querySelector("#contact-form");
 
-    if (!form) return;
+    const status =
+        document.querySelector("#contact-success");
+
+
+    if (!form) {
+        return;
+    }
+
 
     form.addEventListener("submit", async (event) => {
 
         event.preventDefault();
 
+
         const submitButton =
             form.querySelector('button[type="submit"]');
 
-        const originalButtonText =
-            submitButton.textContent;
 
-        submitButton.disabled = true;
-        submitButton.textContent = "Sending...";
+        const originalButtonHTML =
+            submitButton.innerHTML;
+
+
+        // Hide old status message before new submission
 
         if (status) {
-            status.textContent = "";
+
+            status.hidden = true;
+
+            status.textContent =
+                "Thanks — your message has been received.";
+
         }
+
+
+        // Disable button while sending
+
+        submitButton.disabled = true;
+
+        submitButton.innerHTML = `
+            <span>Sending...</span>
+            <span>→</span>
+        `;
+
 
         try {
 
             const formData =
                 new FormData(form);
 
+
             const data =
                 Object.fromEntries(
                     formData.entries()
                 );
+
 
             const response =
                 await fetch("/api/contact", {
@@ -62,14 +94,19 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
+            // Successful submission
+
+            form.reset();
+
+
             if (status) {
 
                 status.textContent =
-                    "Thanks! Your message has been sent successfully.";
+                    "Thanks — your message has been received.";
+
+                status.hidden = false;
 
             }
-
-            form.reset();
 
 
         } catch (error) {
@@ -79,19 +116,25 @@ document.addEventListener("DOMContentLoaded", () => {
                 error
             );
 
+
             if (status) {
 
                 status.textContent =
                     "Sorry, your message could not be sent. Please try again.";
 
+                status.hidden = false;
+
             }
+
 
         } finally {
 
+            // Re-enable button
+
             submitButton.disabled = false;
 
-            submitButton.textContent =
-                originalButtonText;
+            submitButton.innerHTML =
+                originalButtonHTML;
 
         }
 
