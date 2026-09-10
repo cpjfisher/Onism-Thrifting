@@ -163,6 +163,9 @@ export default async function handler(
             cancel_url:
                 `${process.env.SITE_URL}/checkout.html`,
 
+            notify_url:
+                `${process.env.SITE_URL}/api/payfast-notify`,
+
 
             name_first:
                 customer.firstName,
