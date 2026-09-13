@@ -75,65 +75,92 @@ export default async function handler(
 
     try {
 
-        const {
-            customer,
-            productIds
-        } = req.body;
-
-
         // ======================================
-        // VALIDATE REQUEST
-        // ======================================
+// READ REQUEST BODY
+// ======================================
 
-        if (
-            !customer ||
-            !Array.isArray(productIds) ||
-            productIds.length === 0
-        ) {
-
-            return res
-                .status(400)
-                .json({
-                    error: "Invalid order."
-                });
-
-        }
+let body = req.body;
 
 
-        const requiredFields = [
+// Vercel may occasionally provide
+// the request body as a string.
+if (typeof body === "string") {
 
-            "firstName",
-            "lastName",
-            "email",
-            "phone",
-            "address",
-            "suburb",
-            "city",
-            "province",
-            "postalCode"
+    try {
 
-        ];
+        body = JSON.parse(body);
 
+    } catch (error) {
 
-        const missingField =
-            requiredFields.find(
-                field =>
-                    !String(
-                        customer[field] || ""
-                    ).trim()
-            );
+        return res.status(400).json({
+            error: "Could not read checkout data.",
+            apiVersion: "supabase-v2"
+        });
+
+    }
+
+}
 
 
-        if (missingField) {
+body = body || {};
 
-            return res
-                .status(400)
-                .json({
-                    error:
-                        "Missing customer details."
-                });
 
-        }
+const {
+    customer,
+    productIds
+} = body;
+
+
+// Temporary diagnostics.
+// Do not log the customer's personal details.
+console.log(
+    "CREATE PAYMENT v2",
+    {
+        bodyKeys:
+            Object.keys(body),
+
+        productIds:
+
+            Array.isArray(productIds)
+                ? productIds
+                : typeof productIds
+
+    }
+);
+
+
+// ======================================
+// VALIDATE REQUEST
+// ======================================
+
+if (!customer) {
+
+    return res.status(400).json({
+        error: "Customer details were not received.",
+        apiVersion: "supabase-v2"
+    });
+
+}
+
+
+if (!Array.isArray(productIds)) {
+
+    return res.status(400).json({
+        error: "Product IDs were not received as an array.",
+        apiVersion: "supabase-v2"
+    });
+
+}
+
+
+if (productIds.length === 0) {
+
+    return res.status(400).json({
+        error: "No products were received.",
+        apiVersion: "supabase-v2"
+    });
+
+}
 
 
         // ======================================
