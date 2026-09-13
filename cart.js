@@ -505,8 +505,21 @@ function renderCartPage() {
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    async() => {
 
+        try {
+
+            await syncProductsWithInventory();
+
+        } catch (error) {
+
+            console.error(
+                "Unable to sync cart inventory:",
+                error
+            );
+
+        }
+        
         updateCartCount();
 
         renderCartPage();

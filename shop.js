@@ -4,7 +4,7 @@
 // ==========================================
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
 
     // ======================================
@@ -48,6 +48,44 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
 
     }
+
+    // ======================================
+// LIVE INVENTORY
+// ======================================
+
+try {
+
+    await syncProductsWithInventory();
+
+} catch (error) {
+
+    console.error(
+        "Unable to sync inventory:",
+        error
+    );
+
+
+    productGrid.innerHTML = `
+
+        <div class="shop-empty">
+
+            <p>
+                We're having trouble loading
+                the latest stock.
+            </p>
+
+            <p>
+                Please refresh and try again.
+            </p>
+
+        </div>
+
+    `;
+
+
+    return;
+
+}
 
 
     // ======================================

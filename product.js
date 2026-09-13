@@ -4,7 +4,7 @@
 // ==========================================
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
 
     // ======================================
@@ -19,6 +19,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const productId =
         params.get("id");
+
+    // ======================================
+    // LIVE INVENTORY
+    // ======================================
+
+    try {
+
+        await syncProductsWithInventory();
+
+    } catch (error) {
+
+        console.error(
+            "Unable to sync product inventory:",
+            error
+        );
+
+    }
 
 
     // ======================================

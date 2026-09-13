@@ -6,7 +6,7 @@
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    async () => {
 
 
         const checkoutItems =
@@ -68,6 +68,19 @@ document.addEventListener(
 
         const cart =
             getCart();
+
+        try {
+
+            await syncProductsWithInventory();
+
+        } catch (error) {
+
+            console.error(
+                "Unable to sync checkout inventory:",
+                error
+            );
+
+        }
 
 
         const cartProducts =
