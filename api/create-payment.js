@@ -16,7 +16,7 @@ function encodePayFastValue(value) {
 
 
 // ==========================================
-// GENERATE SIGNATURE
+// GENERATE PAYFAST SIGNATURE
 // ==========================================
 
 function generateSignature(
@@ -64,9 +64,11 @@ export default async function handler(
 
     if (req.method !== "POST") {
 
-        return res.status(405).json({
-            error: "Method not allowed."
-        });
+        return res
+            .status(405)
+            .json({
+                error: "Method not allowed."
+            });
 
     }
 
@@ -75,75 +77,221 @@ export default async function handler(
 
         const {
             customer,
-            products,
-            subtotal,
-            shipping,
-            total
+            productIds
         } = req.body;
 
 
+        // ======================================
+        // VALIDATE REQUEST
+        // ======================================
+
         if (
             !customer ||
-            !Array.isArray(products) ||
-            products.length === 0
+            !Array.isArray(productIds) ||
+            productIds.length === 0
         ) {
 
-            return res.status(400).json({
-                error: "Invalid order."
-            });
+            return res
+                .status(400)
+                .json({
+                    error: "Invalid order."
+                });
 
         }
 
 
-        // ======================================
-        // RE-CALCULATE ORDER SERVER SIDE
-        // ======================================
+        const requiredFields = [
 
-        const calculatedSubtotal =
-            products.reduce(
-                (sum, product) =>
-                    sum +
-                    Number(product.price),
-                0
+            "firstName",
+            "lastName",
+            "email",
+            "phone",
+            "address",
+            "suburb",
+            "city",
+            "province",
+            "postalCode"
+
+        ];
+
+
+        const missingField =
+            requiredFields.find(
+                field =>
+                    !String(
+                        customer[field] || ""
+                    ).trim()
             );
 
 
-        const calculatedShipping =
-            calculatedSubtotal >= 500
-                ? 0
-                : 60;
+        if (missingField) {
 
-
-        const calculatedTotal =
-            calculatedSubtotal +
-            calculatedShipping;
-
-
-        // Basic consistency check
-
-        if (
-            Number(total) !==
-            calculatedTotal
-        ) {
-
-            return res.status(400).json({
-                error:
-                    "Order total does not match."
-            });
+            return res
+                .status(400)
+                .json({
+                    error:
+                        "Missing customer details."
+                });
 
         }
 
 
         // ======================================
-        // ORDER NUMBER
+        // CREATE ORDER NUMBER
         // ======================================
 
         const orderId =
-            `ONISM-${Date.now()}`;
+            `ONISM-${Date.now()}-${crypto
+                .randomBytes(3)
+                .toString("hex")
+                .toUpperCase()}`;
 
 
         // ======================================
-        // PAYFAST DATA
+        // SUPABASE
+        // ======================================
+
+        const supabaseUrl =
+            process.env.SUPABASE_URL;
+
+
+        const supabaseSecret =
+            process.env.SUPABASE_SECRET_KEY;
+
+
+        if (
+            !supabaseUrl ||
+            !supabaseSecret
+        ) {
+
+            throw new Error(
+                "Supabase environment variables are missing."
+            );
+
+        }
+
+
+        // ======================================
+        // CREATE PENDING ORDER IN DATABASE
+        // ======================================
+
+        const rpcResponse =
+            await fetch(
+
+                `${supabaseUrl}/rest/v1/rpc/create_pending_order`,
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "apikey":
+                            supabaseSecret
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            p_order_id:
+                                orderId,
+
+                            p_first_name:
+                                customer.firstName,
+
+                            p_last_name:
+                                customer.lastName,
+
+                            p_email:
+                                customer.email,
+
+                            p_phone:
+                                customer.phone,
+
+                            p_address:
+                                customer.address,
+
+                            p_suburb:
+                                customer.suburb,
+
+                            p_city:
+                                customer.city,
+
+                            p_province:
+                                customer.province,
+
+                            p_postal_code:
+                                customer.postalCode,
+
+                            p_product_ids:
+                                productIds
+
+                        })
+
+                }
+
+            );
+
+
+        const rpcResult =
+            await rpcResponse.json();
+
+
+        if (!rpcResponse.ok) {
+
+            console.error(
+                "Supabase order error:",
+                rpcResult
+            );
+
+
+            return res
+                .status(400)
+                .json({
+
+                    error:
+                        rpcResult.message ||
+                        "Unable to create order."
+
+                });
+
+        }
+
+
+        // ======================================
+        // TRUST DATABASE TOTAL
+        // ======================================
+
+        const order =
+            Array.isArray(rpcResult)
+                ? rpcResult[0]
+                : rpcResult;
+
+
+        const total =
+            Number(
+                order.total
+            );
+
+
+        if (
+            !Number.isFinite(total) ||
+            total <= 0
+        ) {
+
+            throw new Error(
+                "Invalid total returned by database."
+            );
+
+        }
+
+
+        // ======================================
+        // PAYFAST PAYMENT DATA
         // ======================================
 
         const paymentData = {
@@ -181,7 +329,7 @@ export default async function handler(
                 orderId,
 
             amount:
-                calculatedTotal.toFixed(2),
+                total.toFixed(2),
 
             item_name:
                 `Onism Thrifting ${orderId}`
@@ -189,17 +337,28 @@ export default async function handler(
         };
 
 
+        // ======================================
+        // SIGN PAYMENT
+        // ======================================
+
         const signature =
             generateSignature(
+
                 paymentData,
+
                 process.env
                     .PAYFAST_PASSPHRASE
+
             );
 
 
         paymentData.signature =
             signature;
 
+
+        // ======================================
+        // PAYFAST URL
+        // ======================================
 
         const paymentUrl =
             process.env.PAYFAST_MODE ===
@@ -210,31 +369,35 @@ export default async function handler(
                 : "https://sandbox.payfast.co.za/eng/process";
 
 
-        return res.status(200).json({
+        return res
+            .status(200)
+            .json({
 
-            paymentUrl,
+                paymentUrl,
 
-            paymentData,
+                paymentData,
 
-            orderId
+                orderId
 
-        });
+            });
 
 
     } catch (error) {
 
         console.error(
-            "PayFast error:",
+            "Create payment error:",
             error
         );
 
 
-        return res.status(500).json({
+        return res
+            .status(500)
+            .json({
 
-            error:
-                "Unable to create payment."
+                error:
+                    "Unable to create payment."
 
-        });
+            });
 
     }
 

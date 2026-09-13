@@ -332,27 +332,11 @@ document.addEventListener(
                                 customer:
                                     customerDetails,
 
-                                products:
+                                productsIds:
                                     cartProducts.map(
-                                        product => ({
-                                            id:
-                                                product.id,
-
-                                            name:
-                                                product.name,
-
-                                            price:
-                                                Number(
-                                                    product.price
-                                                )
-                                        })
-                                    ),
-
-                                subtotal,
-
-                                shipping,
-
-                                total
+                                        product => 
+                                            product.id
+                                    )
 
                             })
 
