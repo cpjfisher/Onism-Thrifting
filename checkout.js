@@ -421,11 +421,13 @@ document.addEventListener(
         } catch (error) {
 
             console.error(
+                "Checkout payment error:",
                 error
             );
 
 
             alert(
+                error.message ||
                 "We couldn't start the payment. Please try again."
             );
 
