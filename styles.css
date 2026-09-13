@@ -2199,3 +2199,116 @@ button {
     }
 
 }
+
+/* ==========================================
+   PAYMENT STATUS
+========================================== */
+
+.payment-status-page {
+    padding: 90px 0;
+}
+
+.payment-status-card {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 50px 40px;
+    text-align: center;
+    background: #f7f7f7;
+}
+
+.payment-status-label {
+    margin-bottom: 18px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    color: #777;
+}
+
+.payment-status-card h1 {
+    margin: 0 0 16px;
+    font-size: 34px;
+}
+
+.payment-status-message {
+    max-width: 480px;
+    margin: 0 auto 30px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.payment-loader {
+    width: 28px;
+    height: 28px;
+    margin: 0 auto 25px;
+    border: 2px solid #ddd;
+    border-top-color: #111;
+    border-radius: 50%;
+    animation: payment-spin 0.8s linear infinite;
+}
+
+@keyframes payment-spin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+.payment-order-details {
+    margin: 30px 0;
+    padding: 20px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.payment-detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 8px 0;
+    text-align: left;
+    font-size: 14px;
+}
+
+.payment-detail-row span {
+    color: #666;
+}
+
+.payment-continue-button,
+.check-payment-button {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+    padding: 15px;
+    border: none;
+    background: #111;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.payment-return-link {
+    display: block;
+    margin-top: 20px;
+    color: #333;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+
+    .payment-status-page {
+        padding: 50px 0;
+    }
+
+    .payment-status-card {
+        padding: 40px 20px;
+    }
+
+    .payment-status-card h1 {
+        font-size: 28px;
+    }
+
+}

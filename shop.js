@@ -286,7 +286,8 @@ try {
                 currentCategory === "bottoms" ||
                 currentCategory === "jackets" ||
                 currentCategory === "dresses" ||
-                currentCategory === "shoes"
+                currentCategory === "shoes" ||
+                currentCategory === "accessories"
             ) {
 
                 return product.category ===

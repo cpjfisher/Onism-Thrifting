@@ -333,7 +333,7 @@ if (productIds.length === 0) {
 
 
             return_url:
-                `${process.env.SITE_URL}/payment-success.html`,
+                `${process.env.SITE_URL}/payment-success.html?order=${encodeURIComponent(orderId)}`,
 
             cancel_url:
                 `${process.env.SITE_URL}/checkout.html`,

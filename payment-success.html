@@ -1,19 +1,348 @@
-<main class="payment-success">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Onism Thrifting | Good Style. Not the Price Tag.</title>
+
+    <meta
+        name="description"
+        content="Discover curated pre-loved fashion at affordable prices. Shop unique second-hand clothing from Onism Thrifting."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="shipping-banner">
+    Free shipping on orders over R500
+    </div>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="site-header">
+
+        <div class="container nav-container">
+
+            <!-- Logo -->
+            <a href="#" class="logo">
+                ONISM<span>THRIFTING</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="main-nav" aria-label="Main navigation">
+
+                <a href="shop.html">Shop</a>
+                <a href="shop.html?category=new">New Drop</a>
+                <a href="shop.html?category=under-200">Under R200</a>
+                <a href="about.html">About</a>
+                <a href="donate.html">Donate</a>
+
+            </nav>
+
+            <!-- Header Actions -->
+            <div class="nav-actions">
+
+                <button class="icon-button" id="searchToggle" aria-label="Search">
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <line x1="20" y1="20" x2="16.2" y2="16.2"></line>
+                    </svg>
+                </button>
+
+                    <!-- Search Form -->
+                <form id="searchForm" class="header-search">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search items..."
+                        aria-label="Search products"
+                        autocomplete="off"
+                    >
+                </form>
+
+                <button class="icon-button cart-button" aria-label="Shopping cart">
+                    <svg
+                        width="21"
+                        height="21"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <circle cx="9" cy="20" r="1"></circle>
+                        <circle cx="19" cy="20" r="1"></circle>
+                        <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 2-1.6L21 8H6"></path>
+                    </svg>
+
+                    <span class="cart-count">0</span>
+                </button>
+
+                <!-- Mobile Menu -->
+                <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-menu">
+
+            <nav aria-label="Mobile navigation">
+
+                <a href="#shop">Shop</a>
+                <a href="#new-drop">New Drop</a>
+                <a href="#under-200">Under R200</a>
+                <a href="#about">About</a>
+                <a href="#donate">Donate</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main class="payment-status-page">
 
     <div class="container">
 
-        <h1>
-            Thank you for your order.
-        </h1>
+        <div class="payment-status-card">
 
-        <p>
-            Your payment was submitted successfully.
-        </p>
+            <p class="payment-status-label">
+                ORDER STATUS
+            </p>
 
-        <a href="index.html">
-            Continue Shopping →
-        </a>
+
+            <div
+                id="payment-loader"
+                class="payment-loader"
+            ></div>
+
+
+            <h1 id="payment-status-title">
+                Confirming your payment...
+            </h1>
+
+
+            <p
+                id="payment-status-message"
+                class="payment-status-message"
+            >
+                Please wait while we confirm your
+                payment with PayFast.
+            </p>
+
+
+            <!-- CONFIRMED ORDER -->
+            <div
+                id="payment-order-details"
+                class="payment-order-details"
+                hidden
+            >
+
+                <div class="payment-detail-row">
+
+                    <span>
+                        Order Number
+                    </span>
+
+                    <strong id="confirmed-order-number">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="payment-detail-row">
+
+                    <span>
+                        Total Paid
+                    </span>
+
+                    <strong id="confirmed-order-total">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="check-payment-again"
+                class="check-payment-button"
+                hidden
+            >
+                Check Payment Again
+            </button>
+
+
+            <a
+                href="shop.html"
+                id="payment-continue-shopping"
+                class="payment-continue-button"
+                hidden
+            >
+                Continue Shopping →
+            </a>
+
+
+            <a
+                href="checkout.html"
+                id="payment-return-checkout"
+                class="payment-return-link"
+                hidden
+            >
+                Return to Checkout
+            </a>
+
+        </div>
 
     </div>
 
 </main>
+
+<footer class="site-footer">
+
+    <div class="container footer-container">
+
+        <!-- Main footer -->
+        <div class="footer-main">
+
+            <!-- Brand -->
+            <div class="footer-brand">
+
+                <a href="#" class="footer-logo">
+                    ONISM<span>THRIFTING</span>
+                </a>
+
+                <p>
+                    Good style. Not the price tag.
+                </p>
+
+            </div>
+
+
+            <!-- Navigation -->
+            <div class="footer-column">
+
+                <p class="footer-heading">
+                    SHOP
+                </p>
+
+                <a href="shop.html">Shop All</a>
+                <a href="index.html#new-drop">New Drop</a>
+                <a href="shop.html?category=men">Men</a>
+                <a href="shop.html?category=women">Women</a>
+                <a href="shop.html?category=under-200">Under R200</a>
+
+            </div>
+
+
+            <!-- Information -->
+            <div class="footer-column">
+
+                <p class="footer-heading">
+                    INFORMATION
+                </p>
+
+                <a href="about.html">About Us</a>
+                <a href="donate.html">Donate Clothes</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+
+            </div>
+
+
+            <!-- Social -->
+            <div class="footer-column">
+
+                <p class="footer-heading">
+                    FOLLOW
+                </p>
+
+                <a href="https://www.instagram.com/onismthrifting" target="_blank" rel="noopener noreferrer">
+                    Instagram
+                </a>
+
+                <a href="https://www.tiktok.com/@onismthrifting" target="_blank" rel="noopener noreferrer">
+                    TikTok
+                </a>
+
+                <a href="https://www.facebook.com/profile.php?id=61593666105849" target="_blank" rel="noopener noreferrer">
+                    Facebook
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Bottom footer -->
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Onism Thrifting. All rights reserved.
+            </p>
+
+            <div class="footer-legal">
+
+                <a href="privacy.html">
+                    Privacy Policy
+                </a>
+
+                <a href="terms.html">
+                    Terms & Conditions
+                </a>
+
+                <a href="returns.html">
+                    Returns Policy
+                </a>
+
+                <a href="shipping.html">
+                    Shipping
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+    <script src="payment-success.js"></script>
+    <script src="script.js"></script>
+    <script src="products.js"></script>
+    <script src="home-products.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>
