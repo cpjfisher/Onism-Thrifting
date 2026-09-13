@@ -314,6 +314,13 @@ document.addEventListener(
             // SEND ORDER TO SERVER
             // ======================================
 
+            console.log(
+                "Sending product IDs:",
+                cartProducts.map(
+                product => product.id
+                )
+            );
+
             const response =
                 await fetch(
                     "/api/create-payment",
