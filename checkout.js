@@ -339,7 +339,7 @@ document.addEventListener(
                                 customer:
                                     customerDetails,
 
-                                productsIds:
+                                productIds:
                                     cartProducts.map(
                                         product => 
                                             product.id
