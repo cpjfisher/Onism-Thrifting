@@ -72,28 +72,23 @@ function createParameterString(data) {
         of Object.entries(data)
     ) {
 
-        // PayFast's signature field is
-        // expected at the end of the data.
+        // PayFast places signature at the end.
+        // Stop before adding it to the string.
         if (key === "signature") {
             break;
         }
 
 
-        if (
-            value !== "" &&
-            value !== null &&
-            value !== undefined
-        ) {
+        // IMPORTANT:
+        // ITN signature validation must include
+        // empty fields sent by PayFast.
+        parameters.push(
 
-            parameters.push(
+            `${key}=${encodePayFastValue(
+                value ?? ""
+            )}`
 
-                `${key}=${encodePayFastValue(
-                    value
-                )}`
-
-            );
-
-        }
+        );
 
     }
 
