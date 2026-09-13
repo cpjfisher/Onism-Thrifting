@@ -657,6 +657,799 @@ async function confirmOrder(
 
 }
 
+// ==========================================
+// HTML SAFETY
+// ==========================================
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// ==========================================
+// GET FULL ORDER FOR EMAIL
+// ==========================================
+
+async function getOrderForEmail(
+    orderId
+) {
+
+    const {
+        url,
+        secret
+    } = getSupabaseConfig();
+
+
+    // ======================================
+    // ORDER
+    // ======================================
+
+    const orderResponse =
+        await fetch(
+
+            `${url}/rest/v1/orders?id=eq.${encodeURIComponent(
+                orderId
+            )}&select=id,status,first_name,last_name,email,phone,address,suburb,city,province,postal_code,subtotal,shipping,total,customer_email_sent_at,admin_email_sent_at`,
+
+            {
+
+                headers: {
+
+                    apikey:
+                        secret,
+
+                    Authorization:
+                        `Bearer ${secret}`,
+
+                    Accept:
+                        "application/json"
+
+                }
+
+            }
+
+        );
+
+
+    if (!orderResponse.ok) {
+
+        throw new Error(
+            "Unable to load order for email."
+        );
+
+    }
+
+
+    const orders =
+        await orderResponse.json();
+
+
+    const order =
+        orders[0];
+
+
+    if (!order) {
+
+        throw new Error(
+            "Order not found for email."
+        );
+
+    }
+
+
+    // ======================================
+    // ORDER ITEMS
+    // ======================================
+
+    const itemsResponse =
+        await fetch(
+
+            `${url}/rest/v1/order_items?order_id=eq.${encodeURIComponent(
+                orderId
+            )}&select=product_id,product_name,price`,
+
+            {
+
+                headers: {
+
+                    apikey:
+                        secret,
+
+                    Authorization:
+                        `Bearer ${secret}`,
+
+                    Accept:
+                        "application/json"
+
+                }
+
+            }
+
+        );
+
+
+    if (!itemsResponse.ok) {
+
+        throw new Error(
+            "Unable to load order items for email."
+        );
+
+    }
+
+
+    const items =
+        await itemsResponse.json();
+
+
+    return {
+        ...order,
+        items
+    };
+
+}
+
+
+// ==========================================
+// SEND RESEND EMAIL
+// ==========================================
+
+async function sendResendEmail({
+    to,
+    subject,
+    html,
+    idempotencyKey
+}) {
+
+    const apiKey =
+        process.env.RESEND_API_KEY;
+
+
+    const from =
+        process.env.RESEND_FROM_EMAIL;
+
+
+    if (
+        !apiKey ||
+        !from
+    ) {
+
+        throw new Error(
+            "Resend environment variables are missing."
+        );
+
+    }
+
+
+    const response =
+        await fetch(
+            "https://api.resend.com/emails",
+            {
+
+                method:
+                    "POST",
+
+                headers: {
+
+                    Authorization:
+                        `Bearer ${apiKey}`,
+
+                    "Content-Type":
+                        "application/json",
+
+                    "Idempotency-Key":
+                        idempotencyKey
+
+                },
+
+                body:
+                    JSON.stringify({
+
+                        from,
+
+                        to: [to],
+
+                        subject,
+
+                        html
+
+                    })
+
+            }
+        );
+
+
+    const result =
+        await response.json();
+
+
+    if (!response.ok) {
+
+        console.error(
+            "Resend error:",
+            result
+        );
+
+
+        throw new Error(
+            result.message ||
+            "Unable to send email."
+        );
+
+    }
+
+
+    return result;
+
+}
+
+// ==========================================
+// RECORD EMAIL AS SENT
+// ==========================================
+
+async function markEmailSent(
+    orderId,
+    type,
+    emailId
+) {
+
+    const {
+        url,
+        secret
+    } = getSupabaseConfig();
+
+
+    let updateData;
+
+
+    if (
+        type === "customer"
+    ) {
+
+        updateData = {
+
+            customer_email_sent_at:
+                new Date().toISOString(),
+
+            customer_email_id:
+                emailId || null
+
+        };
+
+    } else {
+
+        updateData = {
+
+            admin_email_sent_at:
+                new Date().toISOString(),
+
+            admin_email_id:
+                emailId || null
+
+        };
+
+    }
+
+
+    const response =
+        await fetch(
+
+            `${url}/rest/v1/orders?id=eq.${encodeURIComponent(
+                orderId
+            )}`,
+
+            {
+
+                method:
+                    "PATCH",
+
+                headers: {
+
+                    apikey:
+                        secret,
+
+                    Authorization:
+                        `Bearer ${secret}`,
+
+                    "Content-Type":
+                        "application/json",
+
+                    Prefer:
+                        "return=minimal"
+
+                },
+
+                body:
+                    JSON.stringify(
+                        updateData
+                    )
+
+            }
+
+        );
+
+
+    if (!response.ok) {
+
+        const errorText =
+            await response.text();
+
+
+        console.error(
+            "Email tracking error:",
+            errorText
+        );
+
+
+        throw new Error(
+            "Unable to record sent email."
+        );
+
+    }
+
+}
+
+// ==========================================
+// SEND ORDER EMAILS
+// ==========================================
+
+async function sendOrderEmails(
+    orderId
+) {
+
+    const order =
+        await getOrderForEmail(
+            orderId
+        );
+
+
+    if (
+        order.status !==
+        "paid"
+    ) {
+
+        throw new Error(
+            "Cannot send confirmation for unpaid order."
+        );
+
+    }
+
+
+    // ======================================
+    // BUILD PRODUCT ROWS
+    // ======================================
+
+    const productRows =
+        order.items
+            .map(
+                item => `
+
+                    <tr>
+
+                        <td
+                            style="
+                                padding: 12px 0;
+                                border-bottom: 1px solid #eeeeee;
+                            "
+                        >
+                            ${escapeHtml(
+                                item.product_name
+                            )}
+                        </td>
+
+                        <td
+                            style="
+                                padding: 12px 0;
+                                border-bottom: 1px solid #eeeeee;
+                                text-align: right;
+                            "
+                        >
+                            R${Number(
+                                item.price
+                            ).toFixed(2)}
+                        </td>
+
+                    </tr>
+
+                `
+            )
+            .join("");
+
+
+    const shippingText =
+        Number(
+            order.shipping
+        ) === 0
+
+            ? "FREE"
+
+            : `R${Number(
+                order.shipping
+            ).toFixed(2)}`;
+
+
+    const customerName =
+        `${order.first_name} ${order.last_name}`;
+
+
+    const addressHtml = `
+
+        ${escapeHtml(order.address)}<br>
+        ${escapeHtml(order.suburb)}<br>
+        ${escapeHtml(order.city)}<br>
+        ${escapeHtml(order.province)}<br>
+        ${escapeHtml(order.postal_code)}
+
+    `;
+
+
+    // ======================================
+    // CUSTOMER EMAIL
+    // ======================================
+
+    if (
+        !order.customer_email_sent_at
+    ) {
+
+        const customerHtml = `
+
+            <div
+                style="
+                    font-family: Arial, sans-serif;
+                    max-width: 600px;
+                    margin: 0 auto;
+                    color: #111111;
+                "
+            >
+
+                <h1>
+                    Order confirmed
+                </h1>
+
+                <p>
+                    Hi ${escapeHtml(
+                        order.first_name
+                    )},
+                </p>
+
+                <p>
+                    Thanks for shopping with
+                    Onism Thrifting. Your payment
+                    has been confirmed and we've
+                    received your order.
+                </p>
+
+                <p>
+                    <strong>
+                        Order ${escapeHtml(
+                            order.id
+                        )}
+                    </strong>
+                </p>
+
+
+                <table
+                    style="
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 30px 0;
+                    "
+                >
+
+                    ${productRows}
+
+                    <tr>
+
+                        <td
+                            style="
+                                padding-top: 16px;
+                            "
+                        >
+                            Subtotal
+                        </td>
+
+                        <td
+                            style="
+                                padding-top: 16px;
+                                text-align: right;
+                            "
+                        >
+                            R${Number(
+                                order.subtotal
+                            ).toFixed(2)}
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td
+                            style="
+                                padding-top: 10px;
+                            "
+                        >
+                            Shipping
+                        </td>
+
+                        <td
+                            style="
+                                padding-top: 10px;
+                                text-align: right;
+                            "
+                        >
+                            ${shippingText}
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td
+                            style="
+                                padding-top: 16px;
+                                font-weight: bold;
+                            "
+                        >
+                            Total
+                        </td>
+
+                        <td
+                            style="
+                                padding-top: 16px;
+                                text-align: right;
+                                font-weight: bold;
+                            "
+                        >
+                            R${Number(
+                                order.total
+                            ).toFixed(2)}
+                        </td>
+
+                    </tr>
+
+                </table>
+
+
+                <h3>
+                    Delivery address
+                </h3>
+
+                <p
+                    style="
+                        line-height: 1.6;
+                    "
+                >
+                    ${addressHtml}
+                </p>
+
+
+                <p
+                    style="
+                        margin-top: 30px;
+                        color: #666666;
+                    "
+                >
+                    We'll keep you updated
+                    regarding your order.
+                </p>
+
+
+                <p>
+                    ONISM THRIFTING
+                </p>
+
+            </div>
+
+        `;
+
+
+        const customerEmail =
+            await sendResendEmail({
+
+                to:
+                    order.email,
+
+                subject:
+                    `Order confirmed – ${order.id}`,
+
+                html:
+                    customerHtml,
+
+                idempotencyKey:
+                    `customer-order/${order.id}`
+
+            });
+
+
+        await markEmailSent(
+
+            order.id,
+
+            "customer",
+
+            customerEmail.id
+
+        );
+
+
+        console.log(
+            "Customer confirmation email sent:",
+            order.id
+        );
+
+    }
+
+
+    // ======================================
+    // ADMIN EMAIL
+    // ======================================
+
+    if (
+        !order.admin_email_sent_at
+    ) {
+
+        const adminEmail =
+            process.env
+                .STORE_ORDER_EMAIL;
+
+
+        if (!adminEmail) {
+
+            throw new Error(
+                "STORE_ORDER_EMAIL is missing."
+            );
+
+        }
+
+
+        const adminHtml = `
+
+            <div
+                style="
+                    font-family: Arial, sans-serif;
+                    max-width: 600px;
+                    margin: 0 auto;
+                    color: #111111;
+                "
+            >
+
+                <h1>
+                    New paid order
+                </h1>
+
+
+                <p>
+                    <strong>
+                        ${escapeHtml(
+                            order.id
+                        )}
+                    </strong>
+                </p>
+
+
+                <h3>
+                    Customer
+                </h3>
+
+                <p>
+                    ${escapeHtml(
+                        customerName
+                    )}<br>
+
+                    ${escapeHtml(
+                        order.email
+                    )}<br>
+
+                    ${escapeHtml(
+                        order.phone
+                    )}
+                </p>
+
+
+                <h3>
+                    Items
+                </h3>
+
+                <table
+                    style="
+                        width: 100%;
+                        border-collapse: collapse;
+                    "
+                >
+
+                    ${productRows}
+
+                </table>
+
+
+                <p>
+                    Subtotal:
+                    <strong>
+                        R${Number(
+                            order.subtotal
+                        ).toFixed(2)}
+                    </strong>
+                </p>
+
+                <p>
+                    Shipping:
+                    <strong>
+                        ${shippingText}
+                    </strong>
+                </p>
+
+                <p>
+                    Total:
+                    <strong>
+                        R${Number(
+                            order.total
+                        ).toFixed(2)}
+                    </strong>
+                </p>
+
+
+                <h3>
+                    Delivery address
+                </h3>
+
+                <p
+                    style="
+                        line-height: 1.6;
+                    "
+                >
+                    ${addressHtml}
+                </p>
+
+            </div>
+
+        `;
+
+
+        const adminResult =
+            await sendResendEmail({
+
+                to:
+                    adminEmail,
+
+                subject:
+                    `New paid order – ${order.id}`,
+
+                html:
+                    adminHtml,
+
+                idempotencyKey:
+                    `admin-order/${order.id}`
+
+            });
+
+
+        await markEmailSent(
+
+            order.id,
+
+            "admin",
+
+            adminResult.id
+
+        );
+
+
+        console.log(
+            "Admin order email sent:",
+            order.id
+        );
+
+    }
+
+}
 
 // ==========================================
 // MAIN PAYFAST ITN HANDLER
@@ -984,6 +1777,20 @@ export default async function handler(
             "Onism order confirmed:",
             confirmation
         );
+
+        // ======================================
+        // SEND ORDER CONFIRMATION EMAILS
+        // ======================================
+
+        await sendOrderEmails(
+            orderId
+        );
+
+
+        console.log(
+            "Order emails completed:",
+            orderId
+        );  
 
 
         // ======================================
