@@ -1251,42 +1251,52 @@ async function sendOrderEmails(
         `;
 
 
-        const customerEmail =
-            await sendResendEmail({
+        try {
 
-                to:
-                    order.email,
+            const customerEmail =
+                await sendResendEmail({
 
-                subject:
-                    `Order confirmed – ${order.id}`,
+                    to:
+                        order.email,
 
-                html:
-                    customerHtml,
+                    subject:
+                        `Order confirmed – ${order.id}`,
 
-                idempotencyKey:
-                    `customer-order/${order.id}`
+                    html:
+                        customerHtml,
 
-            });
+                    idempotencyKey:
+                        `customer-order/${order.id}`
 
-
-        await markEmailSent(
-
-            order.id,
-
-            "customer",
-
-            customerEmail.id
-
-        );
+                });
 
 
-        console.log(
-            "Customer confirmation email sent:",
-            order.id
-        );
+            await markEmailSent(
 
+                order.id,
+
+                "customer",
+
+                customerEmail.id
+
+            );
+
+
+            console.log(
+                "Customer confirmation email sent:",
+                order.id
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Customer confirmation email failed:",
+                error
+            );
+
+        }
     }
-
 
     // ======================================
     // ADMIN EMAIL
@@ -1413,41 +1423,51 @@ async function sendOrderEmails(
         `;
 
 
-        const adminResult =
-            await sendResendEmail({
+        try {
 
-                to:
-                    adminEmail,
+            const adminResult =
+                await sendResendEmail({
 
-                subject:
-                    `New paid order – ${order.id}`,
+                    to:
+                        adminEmail,
 
-                html:
-                    adminHtml,
+                    subject:
+                        `New paid order – ${order.id}`,
 
-                idempotencyKey:
-                    `admin-order/${order.id}`
+                    html:
+                        adminHtml,
 
-            });
+                    idempotencyKey:
+                        `admin-order/${order.id}`
 
-
-        await markEmailSent(
-
-            order.id,
-
-            "admin",
-
-            adminResult.id
-
-        );
+                });
 
 
-        console.log(
-            "Admin order email sent:",
-            order.id
-        );
+            await markEmailSent(
 
-    }
+                order.id,
+
+                "admin",
+
+                adminResult.id
+
+            );
+
+
+            console.log(
+                "Admin order email sent:",
+                order.id
+            );
+
+
+        } catch (error) {
+
+           console.error(
+                "Admin order email failed:",
+                error
+            );
+
+        }}
 
 }
 
@@ -1782,15 +1802,37 @@ export default async function handler(
         // SEND ORDER CONFIRMATION EMAILS
         // ======================================
 
-        await sendOrderEmails(
-            orderId
-        );
+        // ======================================
+        // SEND ORDER EMAILS
+        // ======================================
+
+        try {
+
+            await sendOrderEmails(
+                orderId
+            );
 
 
-        console.log(
-            "Order emails completed:",
-            orderId
-        );  
+            console.log(
+               "Order emails completed:",
+                orderId
+            );
+
+
+        } catch (emailError) {
+
+            // Payment has already been verified
+            // and the order is already paid.
+            //
+            // An email problem must NOT cause
+            // PayFast payment processing to fail.
+
+            console.error(
+                "Order email error:",
+                emailError
+            );
+
+        } 
 
 
         // ======================================
